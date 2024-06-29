@@ -1,2 +1,8 @@
 /EzEventParkingWS/build/
 /EzEventParkingWS/nbproject/private/
+EzEventParkingServer/nbproject/build-impl.xml
+EzEventParkingServer/nbproject/genfiles.properties
+EzEventParkingServer/nbproject/project.properties
+EzEventParkingServer/nbproject/project.xml
+EzEventParkingWS/nbproject/private/private.properties
+EzEventParkingWS/nbproject/project.properties
