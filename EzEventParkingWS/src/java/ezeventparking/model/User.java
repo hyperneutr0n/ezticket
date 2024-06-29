@@ -172,9 +172,9 @@ public class User extends Model {
         return searchResult;
     }
     
-    public static boolean CheckLogin(String username, String password) {
-        String sql = "SELECT password FROM users WHERE username=?";
-        boolean loginSuccess = false;
+    public static int CheckLogin(String username, String password) {
+        String sql = "SELECT id,password FROM users WHERE username=?";
+        int loginID = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
@@ -182,12 +182,12 @@ public class User extends Model {
                 ResultSet result = pstmt.executeQuery();
                 result.next();
                 if (password.equals(result.getString("password"))) {
-                    loginSuccess = true;
+                    loginID = result.getInt("id");
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return loginSuccess;
+        return loginID;
     }
 }
