@@ -2,7 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ezeventparking.ui;
+package ezeventparkingclient;
+
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.List;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 
 /**
  *
@@ -13,6 +25,10 @@ public class formOrderTicket extends javax.swing.JFrame {
     /**
      * Creates new form formOrderTicket
      */
+    Socket clientSocket;
+    BufferedReader msgFromServer;
+    DataOutputStream msgToServer;
+
     public formOrderTicket() {
         initComponents();
     }
@@ -40,16 +56,21 @@ public class formOrderTicket extends javax.swing.JFrame {
         labelLokasi = new javax.swing.JLabel();
         btnOrder = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         labelAccount = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         labelbiasa1 = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
         labelbiasa2 = new javax.swing.JLabel();
         labelbiasa3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 51));
         jPanel1.setLayout(null);
@@ -118,7 +139,7 @@ public class formOrderTicket extends javax.swing.JFrame {
                 .addContainerGap(113, Short.MAX_VALUE))
         );
 
-        panelTicket.setBackground(new java.awt.Color(255, 255, 255));
+        panelTicket.setBackground(new java.awt.Color(153, 153, 153));
 
         javax.swing.GroupLayout panelTicketLayout = new javax.swing.GroupLayout(panelTicket);
         panelTicket.setLayout(panelTicketLayout);
@@ -153,34 +174,44 @@ public class formOrderTicket extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(40, 110, 854, 331);
+        jPanel3.setBounds(40, 110, 874, 331);
 
         labelTicket.setForeground(new java.awt.Color(0, 0, 0));
         labelTicket.setText("A1,A2,A4");
         jPanel1.add(labelTicket);
-        labelTicket.setBounds(710, 600, 110, 16);
+        labelTicket.setBounds(710, 600, 110, 21);
 
         labelLokasi.setForeground(new java.awt.Color(0, 0, 0));
         labelLokasi.setText("OHIO");
         jPanel1.add(labelLokasi);
-        labelLokasi.setBounds(710, 540, 110, 16);
+        labelLokasi.setBounds(710, 540, 110, 21);
 
         btnOrder.setBackground(new java.awt.Color(0, 0, 0));
         btnOrder.setText("ORDER");
+        btnOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnOrder);
-        btnOrder.setBounds(830, 630, 75, 24);
+        btnOrder.setBounds(830, 630, 90, 29);
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel5.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        jLabel9.setText("Ticket");
-
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Event");
 
+        labelAccount.setBackground(new java.awt.Color(255, 255, 255));
         labelAccount.setText("SIGMA");
 
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setText("EZTICKETING");
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel9.setText("Ticket");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -189,9 +220,9 @@ public class formOrderTicket extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 665, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 659, Short.MAX_VALUE)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelAccount)
@@ -204,39 +235,40 @@ public class formOrderTicket extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(labelAccount)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9))
                 .addGap(31, 31, 31))
         );
 
         jPanel1.add(jPanel5);
         jPanel5.setBounds(-8, 0, 970, 88);
+        jPanel5.getAccessibleContext().setAccessibleParent(jPanel5);
 
         labelbiasa1.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa1.setText("Booked Tickets:");
         jPanel1.add(labelbiasa1);
-        labelbiasa1.setBounds(600, 600, 110, 16);
+        labelbiasa1.setBounds(600, 600, 110, 21);
 
         labelDate.setForeground(new java.awt.Color(0, 0, 0));
         labelDate.setText("DATE");
         jPanel1.add(labelDate);
-        labelDate.setBounds(710, 570, 110, 16);
+        labelDate.setBounds(710, 570, 110, 21);
 
         labelbiasa2.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa2.setText("Tanggal:");
         jPanel1.add(labelbiasa2);
-        labelbiasa2.setBounds(600, 570, 110, 16);
+        labelbiasa2.setBounds(600, 570, 110, 21);
 
         labelbiasa3.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa3.setText("Lokasi:");
         jPanel1.add(labelbiasa3);
-        labelbiasa3.setBounds(600, 540, 110, 16);
+        labelbiasa3.setBounds(600, 540, 110, 21);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 955, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,6 +279,47 @@ public class formOrderTicket extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
+        try {
+            // TODO add your handling code here:
+            clientSocket = new Socket("localhost", 6000);
+            String ticket = labelTicket.getText();
+            String msg = "PARKING/ORDER/" + ticket + "/" + "date";
+            sendMessage(msg);
+
+            String response = getMessage();
+
+            if (response.equals("SUCCESS")) {
+
+            } else {
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Error di formOrderTicket Order");
+        }
+
+    }//GEN-LAST:event_btnOrderActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        JCheckBox cb = new JCheckBox();
+        JCheckBox cb1 = new JCheckBox();
+        JCheckBox cb2 = new JCheckBox();
+        
+        panelTicket.setPreferredSize(new Dimension(630,250));
+        panelTicket.setLayout(new GridLayout(0,1));
+        
+        panelTicket.add(cb);
+        panelTicket.add(cb1);
+        panelTicket.add(cb2);
+        
+        panelTicket.revalidate();
+        panelTicket.repaint();
+        
+        
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -275,6 +348,8 @@ public class formOrderTicket extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -283,6 +358,27 @@ public class formOrderTicket extends javax.swing.JFrame {
             }
         });
     }
+
+    public void sendMessage(String s) {
+        try {
+            msgToServer = new DataOutputStream(clientSocket.getOutputStream());
+
+        } catch (Exception e) {
+        }
+    }
+
+    public String getMessage() {
+        String chatServer = "";
+        try {
+            msgFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            chatServer = msgFromServer.readLine();
+        } catch (Exception ex) {
+        }
+
+        return chatServer;
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOrder;
@@ -298,8 +394,8 @@ public class formOrderTicket extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel labelAccount;
     private javax.swing.JLabel labelAvailable;
-    private javax.swing.JLabel labelDate;
-    private javax.swing.JLabel labelLokasi;
+    public javax.swing.JLabel labelDate;
+    public javax.swing.JLabel labelLokasi;
     private javax.swing.JLabel labelOccupied;
     private javax.swing.JLabel labelTicket;
     private javax.swing.JLabel labelTotal;

@@ -2,7 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ezeventparking.ui;
+package ezeventparkingclient;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,6 +21,10 @@ public class formMenuParking extends javax.swing.JFrame {
     /**
      * Creates new form formMenuParking
      */
+    Socket clientSocket;
+    BufferedReader msgFromServer;
+    DataOutputStream msgToServer;
+
     public formMenuParking() {
         initComponents();
     }
@@ -28,7 +40,7 @@ public class formMenuParking extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxLocation = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -45,12 +57,12 @@ public class formMenuParking extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxLocation.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBoxLocation.setForeground(new java.awt.Color(0, 0, 0));
+        jComboBoxLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxLocation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxLocationActionPerformed(evt);
             }
         });
 
@@ -72,7 +84,7 @@ public class formMenuParking extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(701, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -80,7 +92,7 @@ public class formMenuParking extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
@@ -135,8 +147,13 @@ public class formMenuParking extends javax.swing.JFrame {
         btnSearch.setBackground(new java.awt.Color(0, 0, 0));
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
         btnSearch.setText("SEARCH");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnSearch);
-        btnSearch.setBounds(790, 650, 110, 27);
+        btnSearch.setBounds(790, 650, 110, 29);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,9 +169,33 @@ public class formMenuParking extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jComboBoxLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLocationActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jComboBoxLocationActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        try {
+            // TODO add your handling code here:
+            clientSocket = new Socket("localhost", 6000);
+            String location = (String) jComboBoxLocation.getSelectedItem();
+            String msg = "PARKING/SEARCHPARKING/" + location + "/";
+            
+            String response = getMessage();
+            
+            if(response.equals("SUCCESS")){
+                formOrderTicket frm = new formOrderTicket();
+                frm.labelLokasi.setText(location);
+                frm.labelDate.setText("date");
+            }
+            else{
+                
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Error di formMenuParking search ");
+        }
+
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,6 +224,8 @@ public class formMenuParking extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -192,9 +235,30 @@ public class formMenuParking extends javax.swing.JFrame {
         });
     }
 
+    public void sendMessage(String s) {
+        try {
+            msgToServer = new DataOutputStream(clientSocket.getOutputStream());
+
+        } catch (Exception e) {
+        }
+    }
+
+    public String getMessage() {
+        String chatServer = "";
+        try {
+            msgFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            chatServer = msgFromServer.readLine();
+        } catch (Exception ex) {
+        }
+
+        return chatServer;
+
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxLocation;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
