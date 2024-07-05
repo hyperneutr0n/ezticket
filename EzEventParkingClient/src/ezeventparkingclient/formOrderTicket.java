@@ -60,6 +60,7 @@ public class formOrderTicket extends javax.swing.JFrame {
         labelAccount = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         labelbiasa1 = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
         labelbiasa2 = new javax.swing.JLabel();
@@ -187,6 +188,7 @@ public class formOrderTicket extends javax.swing.JFrame {
         labelLokasi.setBounds(710, 540, 110, 21);
 
         btnOrder.setBackground(new java.awt.Color(0, 0, 0));
+        btnOrder.setForeground(new java.awt.Color(255, 255, 255));
         btnOrder.setText("ORDER");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,21 +199,29 @@ public class formOrderTicket extends javax.swing.JFrame {
         btnOrder.setBounds(830, 630, 90, 29);
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel5.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Event");
 
         labelAccount.setBackground(new java.awt.Color(255, 255, 255));
+        labelAccount.setForeground(new java.awt.Color(255, 255, 255));
         labelAccount.setText("SIGMA");
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("EZTICKETING");
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Ticket");
+
+        jLabel6.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Available:");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -220,7 +230,9 @@ public class formOrderTicket extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 659, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 550, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
@@ -236,7 +248,8 @@ public class formOrderTicket extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(labelAccount)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel6))
                 .addGap(31, 31, 31))
         );
 
@@ -386,6 +399,7 @@ public class formOrderTicket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
