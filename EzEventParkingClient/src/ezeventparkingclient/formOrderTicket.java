@@ -329,6 +329,7 @@ public class formOrderTicket extends javax.swing.JFrame {
         GenerateCheckBoxes("100");
         updateCheckboxes(listBoughtTickets);
         enableCheckboxes(listBoughtTickets);
+        labelTicket.setText("");
 //        try {
 //            clientSocket = new Socket("localhost", 6000);
 //            String msg = "PARKING/CAPACITY";
