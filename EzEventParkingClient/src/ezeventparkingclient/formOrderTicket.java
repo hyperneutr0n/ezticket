@@ -12,6 +12,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
@@ -25,6 +26,7 @@ public class formOrderTicket extends javax.swing.JFrame {
     /**
      * Creates new form formOrderTicket
      */
+    public ArrayList<String> listBoughtTickets = new ArrayList<>();
     Socket clientSocket;
     BufferedReader msgFromServer;
     DataOutputStream msgToServer;

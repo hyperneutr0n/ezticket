@@ -9,8 +9,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,7 +64,8 @@ public class formMenuParking extends javax.swing.JFrame {
 
         jComboBoxLocation.setBackground(new java.awt.Color(255, 255, 255));
         jComboBoxLocation.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBoxLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GM Parking", "TP Parking", "GC Parking", "Delta Parking", "PM Parking" }));
+        jComboBoxLocation.setToolTipText("");
         jComboBoxLocation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxLocationActionPerformed(evt);
@@ -88,7 +93,7 @@ public class formMenuParking extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(659, Short.MAX_VALUE))
+                .addContainerGap(648, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,24 +189,42 @@ public class formMenuParking extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
-            // TODO add your handling code here:
+
             clientSocket = new Socket("localhost", 6000);
-            String location = (String) jComboBoxLocation.getSelectedItem();
-            String msg = "PARKING/SEARCHPARKING/" + location + "/";
-            
+            int indexLocation = jComboBoxLocation.getSelectedIndex() + 1;
+            String location = String.valueOf(indexLocation);
+            Date dateOriginal = jDateChooser1.getDate();
+            Timestamp dateTimeStamp = new Timestamp(dateOriginal.getTime());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String dateString = dateFormat.format(dateTimeStamp) + " 00:00:00";
+            String msg = "PARKING/SEARCHPARKING/" + location + "/" + dateString;
+            System.out.println(location);
+            System.out.println(dateString);
+            System.out.println(msg);
+            sendMessage(msg);
             String response = getMessage();
             
-            if(response.equals("SUCCESS")){
+            String[] responses = response.split("/");
+
+            if (responses[0].equals("SUCCESS")) {
                 formOrderTicket frm = new formOrderTicket();
                 frm.labelLokasi.setText(location);
                 frm.labelDate.setText("date");
-            }
-            else{
                 
+                for(int i = 1;i<= responses.length;i++){
+                    frm.listBoughtTickets.add(responses[i]);
+                    
+                }
+                
+                
+                
+                
+            } else {
+
             }
 
         } catch (Exception ex) {
-            System.out.println("Error di formMenuParking search ");
+            System.out.println("Error di formMenuParking search " + ex);
         }
 
     }//GEN-LAST:event_btnSearchActionPerformed
