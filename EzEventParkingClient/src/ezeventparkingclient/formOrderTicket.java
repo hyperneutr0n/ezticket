@@ -304,7 +304,7 @@ public class formOrderTicket extends javax.swing.JFrame {
             // TODO add your handling code here:
             clientSocket = new Socket("localhost", 6000);
             String ticket = labelTicket.getText();
-            String msg = "PARKING/ORDER/" + ticket + "/" + "date";
+            String msg = "PARKING/ORDER/" + ticket + "/" + labelDate.getText() + " 00:00:00";
             sendMessage(msg);
 
             String response = getMessage();
