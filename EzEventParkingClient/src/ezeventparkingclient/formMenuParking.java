@@ -209,7 +209,7 @@ public class formMenuParking extends javax.swing.JFrame {
             if (responses[0].equals("SUCCESS")) {
                 formOrderTicket frm = new formOrderTicket();
                 frm.labelLokasi.setText(location);
-                frm.labelDate.setText("date");
+                frm.labelDate.setText(dateFormat.format(dateTimeStamp));
                 
                 for(int i = 1;i<= responses.length;i++){
                     frm.listBoughtTickets.add(responses[i]);

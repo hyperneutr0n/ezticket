@@ -4,9 +4,12 @@
  */
 package ezeventparkingclient;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.List;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -30,6 +33,7 @@ public class formOrderTicket extends javax.swing.JFrame {
     Socket clientSocket;
     BufferedReader msgFromServer;
     DataOutputStream msgToServer;
+    public int count;
 
     public formOrderTicket() {
         initComponents();
@@ -142,7 +146,7 @@ public class formOrderTicket extends javax.swing.JFrame {
                 .addContainerGap(113, Short.MAX_VALUE))
         );
 
-        panelTicket.setBackground(new java.awt.Color(153, 153, 153));
+        panelTicket.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelTicketLayout = new javax.swing.GroupLayout(panelTicket);
         panelTicket.setLayout(panelTicketLayout);
@@ -318,23 +322,114 @@ public class formOrderTicket extends javax.swing.JFrame {
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        JCheckBox cb = new JCheckBox();
-        JCheckBox cb1 = new JCheckBox();
-        JCheckBox cb2 = new JCheckBox();
-        
-        panelTicket.setPreferredSize(new Dimension(630,250));
-        panelTicket.setLayout(new GridLayout(0,1));
-        
-        panelTicket.add(cb);
-        panelTicket.add(cb1);
-        panelTicket.add(cb2);
-        
+        listBoughtTickets.add("A1");
+        listBoughtTickets.add("B1");
+        listBoughtTickets.add("D6");
+        listBoughtTickets.add("G7");
+        GenerateCheckBoxes("100");
+        updateCheckboxes(listBoughtTickets);
+        enableCheckboxes(listBoughtTickets);
+//        try {
+//            clientSocket = new Socket("localhost", 6000);
+//            String msg = "PARKING/CAPACITY";
+//            sendMessage(msg);
+//            String capacity = getMessage();
+//            if (!capacity.equals("FAIL")) {
+//                GenerateCheckBoxes(capacity);
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("Error di formOrderTicket windowOpened " + ex);
+//        }
+
+    }//GEN-LAST:event_formWindowOpened
+
+    public void GenerateCheckBoxes(String maxSlot) {
+        int capacity = Integer.valueOf(maxSlot);
+        int columns = 10;
+        int rows = capacity / columns;
+
+        panelTicket.setPreferredSize(new Dimension(630, 250));
+        panelTicket.setLayout(new GridLayout(rows, columns));
+
+        for (int i = 0; i < rows; i++) {
+            char rowLetter = (char) ('A' + i);
+            for (int j = 1; j <= columns; j++) {
+                JCheckBox checkBox = new JCheckBox(rowLetter + String.valueOf(j));
+
+                checkBox.setEnabled(true);
+                checkBox.addItemListener(new ItemListener() {
+                    public void itemStateChanged(ItemEvent e) {
+                        if (e.getStateChange() == ItemEvent.SELECTED) {
+                            disableOtherCheckboxes(checkBox);
+                            labelTicket.setText(checkBox.getText());
+                        } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                            enableCheckboxes(listBoughtTickets);
+                            labelTicket.setText("");
+                        }
+                    }
+                });
+                panelTicket.add(checkBox);
+            }
+        }
         panelTicket.revalidate();
         panelTicket.repaint();
-        
-        
-    }//GEN-LAST:event_formWindowOpened
+    }
+
+    public void updateCheckboxes(ArrayList<String> listBoughtTickets) {
+        Component[] components = panelTicket.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) component;
+                String checkBoxName = checkBox.getText();
+
+                checkBox.setEnabled(true);
+                checkBox.setSelected(false);
+                System.out.println("Checkbox: " + checkBoxName + " Enabled: " + checkBox.isEnabled() + " Selected: " + checkBox.isSelected());
+
+                if (listBoughtTickets.contains(checkBoxName)) {
+                    checkBox.setSelected(true);
+                    checkBox.setEnabled(false);
+                    System.out.println("Checkbox in listBoughtTickets: " + checkBoxName + " Enabled: " + checkBox.isEnabled() + " Selected: " + checkBox.isSelected());
+                }
+            }
+        }
+        panelTicket.revalidate();
+        panelTicket.repaint();
+    }
+
+    private void disableOtherCheckboxes(JCheckBox selectedCheckbox) {
+        Component[] components = panelTicket.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) component;
+
+                if (checkBox != selectedCheckbox) {
+                    checkBox.setEnabled(false);
+                }
+            }
+        }
+        panelTicket.revalidate();
+        panelTicket.repaint();
+    }
+
+    private void enableCheckboxes(ArrayList<String> listBoughtTickets) {
+        Component[] components = panelTicket.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JCheckBox) {
+                JCheckBox checkBox = (JCheckBox) component;
+                String checkBoxName = checkBox.getText();
+
+                if (!listBoughtTickets.contains(checkBoxName)) {
+                    checkBox.setEnabled(true);
+                }
+            }
+        }
+        panelTicket.revalidate();
+        panelTicket.repaint();
+    }
 
     /**
      * @param args the command line arguments
@@ -393,7 +488,6 @@ public class formOrderTicket extends javax.swing.JFrame {
         return chatServer;
 
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOrder;
