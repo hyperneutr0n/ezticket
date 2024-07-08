@@ -57,15 +57,18 @@ public class formMenuParking extends javax.swing.JFrame {
         btnSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 51));
         jPanel1.setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
-        jComboBoxLocation.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBoxLocation.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBoxLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GM Parking", "TP Parking", "GC Parking", "Delta Parking", "PM Parking" }));
+        jComboBoxLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         jComboBoxLocation.setToolTipText("");
         jComboBoxLocation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +97,7 @@ public class formMenuParking extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(648, Short.MAX_VALUE))
+                .addContainerGap(659, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +192,7 @@ public class formMenuParking extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxLocationActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-            try {
+        try {
 
             clientSocket = new Socket("localhost", 6000);
             int indexLocation = jComboBoxLocation.getSelectedIndex() + 1;
@@ -199,13 +202,13 @@ public class formMenuParking extends javax.swing.JFrame {
             Timestamp dateTimeStamp = new Timestamp(dateOriginal.getTime());
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String dateString = dateFormat.format(dateTimeStamp) + " 00:00:00.0";
-            String msg = "parkingticket/getoccupiedslot/" + dateString + "/" + location;
+            String msg = "parkingticket/getoccupiedslot/" + dateString + "/" + location + "\n";
             System.out.println(location);
             System.out.println(dateString);
             System.out.println(msg);
             sendMessage(msg);
             String response = getMessage();
-            
+
             String[] responses = response.split("/");
 
             if (responses[0].equals("SUCCESS")) {
@@ -216,18 +219,16 @@ public class formMenuParking extends javax.swing.JFrame {
                 frm.labelDate.setText(dateFormat.format(dateTimeStamp));
                 frm.userID = userID;
                 frm.parkingLotID = locationString;
-                int countOccupied= 0;
-                for(int i = 2;i<= responses.length;i++){
+                int countOccupied = 0;
+                for (int i = 2; i <= responses.length; i++) {
                     frm.listBoughtTickets.add(responses[i]);
                     countOccupied++;
                 }
                 frm.labelOccupied.setText(String.valueOf(countOccupied));
                 int available;
-                available =Integer.parseInt(capacity) - countOccupied;
+                available = Integer.parseInt(capacity) - countOccupied;
                 frm.labelAvailable.setText(String.valueOf(available));
-                
-                
-                
+
             } else {
 
             }
@@ -237,6 +238,30 @@ public class formMenuParking extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        try {
+            clientSocket = new Socket("localhost", 6000);
+            String msg = "parkinglot/selectdata" + "\n";
+            sendMessage(msg);
+            
+            String response = getMessage();
+            
+            String[] responses = response.split("/");
+            
+            if(responses[0].equals("SUCCESS")){
+                for(int i =1; i<responses.length; i++){
+                    jComboBoxLocation.addItem(responses[i]);
+                }
+                
+            }
+            
+
+        } catch (Exception e) {
+            System.out.println("Error di formMenuParking windowOpened");
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

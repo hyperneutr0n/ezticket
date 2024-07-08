@@ -292,7 +292,7 @@ public class formOrderTicket extends javax.swing.JFrame{
             // TODO add your handling code here:
             clientSocket = new Socket("localhost", 6000);
             String ticket = labelTicket.getText();
-            String msg = "parkingticket/buyparkingticket/" + ticket + "/" + labelDate.getText() + " 00:00:00.0";
+            String msg = "parkingticket/buyparkingticket/" + ticket + "/" + labelDate.getText() + " 00:00:00.0" + "\n";
             sendMessage(msg);
 
             String response = getMessage();
@@ -314,7 +314,7 @@ public class formOrderTicket extends javax.swing.JFrame{
         listBoughtTickets.add("B1");
         listBoughtTickets.add("D6");
         listBoughtTickets.add("G7");
-        GenerateCheckBoxes("100");
+        GenerateCheckBoxes(labelAvailable.getText());
         updateCheckboxes(listBoughtTickets);
         enableCheckboxes(listBoughtTickets);
         labelTicket.setText("");
