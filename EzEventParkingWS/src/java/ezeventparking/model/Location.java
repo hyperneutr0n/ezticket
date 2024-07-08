@@ -14,11 +14,20 @@ import java.util.logging.Logger;
  * @author user
  */
 public class Location extends Model {
+
+    // <editor-fold defaultstate="collapsed" desc="Data Members">
     private int id;
     private String name;
     private String address;
+    // </editor-fold>
 
-    public Location() {}
+    // <editor-fold defaultstate="collapsed" desc="Constructors">
+    public Location() {
+    }
+
+    public Location(int id) {
+        this.id = id;
+    }
 
     public Location(String name, String address) {
         this.name = name;
@@ -30,7 +39,9 @@ public class Location extends Model {
         this.name = name;
         this.address = address;
     }
-    
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Properties">
     public int getId() {
         return id;
     }
@@ -54,15 +65,17 @@ public class Location extends Model {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    public static ArrayList<Location> SelectData() {
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    public ArrayList<Location> SelectData() {
         ArrayList<Location> listLocations = new ArrayList<>();
         String sql = "SELECT * FROM locations";
         try {
-            Statement stmt = Model.conn.createStatement();
-            ResultSet result = stmt.executeQuery(sql);
-            
-            while(result.next()) {
+            stmt = Model.conn.createStatement();
+            result = stmt.executeQuery(sql);
+
+            while (result.next()) {
                 Location location = new Location(
                         result.getInt("id"),
                         result.getString("name"),
@@ -71,64 +84,70 @@ public class Location extends Model {
                 listLocations.add(location);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Location.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listLocations;
     }
-    
+
     @Override
-    public void InsertData() {
+    public int InsertData() {
         String sql = "INSERT INTO locations (name, address) VALUES (?, ?)";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
                 pstmt.setString(1, this.getName());
                 pstmt.setString(2, getAddress());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Location.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
+
     @Override
-    public void UpdateData() {
+    public int UpdateData() {
         String sql = "UPDATE locations SET name=?, address=? WHERE id=?";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
                 pstmt.setInt(3, this.getId());
                 pstmt.setString(1, this.getName());
                 pstmt.setString(2, getAddress());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Location.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
+
     @Override
-    public void DeleteData() {
+    public int DeleteData() {
         String sql = "DELETE FROM users WHERE id=?";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
                 pstmt.setInt(1, this.getId());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Location.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
-    public static Location FindLocation(int id) {
+
+    public Location FindLocation(int id) {
         String sql = "SELECT * FROM locations WHERE id=?";
         Location searchResult = null;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
-                pstmt.setInt(2, id);
-                ResultSet result = pstmt.executeQuery();
+                pstmt.setInt(1, id);
+                result = pstmt.executeQuery();
                 if (result.next()) {
                     searchResult = new Location(
                             result.getInt("id"),
@@ -138,8 +157,14 @@ public class Location extends Model {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Location.class.getName()).log(Level.SEVERE, null, ex);
         }
         return searchResult;
     }
+
+    @Override
+    public String toString() {
+        return this.getId() + "," + this.getName() + "," + this.getAddress();
+    }
+    // </editor-fold>
 }

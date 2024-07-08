@@ -13,15 +13,24 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class Event {
+public class Event extends Model {
+
+    // <editor-fold defaultstate="collapsed" desc="Data Members">
     private int id;
     private String name;
     private String description;
     private Location location;
     private double price;
     private Timestamp date;
+    // </editor-fold>
 
-    public Event() {}
+    // <editor-fold defaultstate="collapsed" desc="Constructors">
+    public Event() {
+    }
+
+    public Event(int id) {
+        this.id = id;
+    }
 
     public Event(String name, String description, Location location, double price, Timestamp date) {
         this.name = name;
@@ -39,7 +48,9 @@ public class Event {
         this.price = price;
         this.date = date;
     }
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Properties">
     public int getId() {
         return id;
     }
@@ -87,36 +98,40 @@ public class Event {
     public void setDate(Timestamp date) {
         this.date = date;
     }
-    
-    public static ArrayList<Event> SelectData() {
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    public ArrayList<Event> SelectData() {
         ArrayList<Event> listEvents = new ArrayList<>();
         String sql = "SELECT * FROM events";
         try {
-            Statement stmt = Model.conn.createStatement();
-            ResultSet result = stmt.executeQuery(sql);
-            
-            while(result.next()) {
-                Location location = Location.FindLocation(result.getInt("locations_id"));
-                
+            stmt = Model.conn.createStatement();
+            result = stmt.executeQuery(sql);
+
+            while (result.next()) {
+                Location rowLocation = new Location(result.getInt("locations_id"));
+
                 Event event = new Event(
                         result.getInt("id"),
                         result.getString("name"),
                         result.getString("description"),
-                        location,
+                        rowLocation,
                         result.getDouble("price"),
                         result.getTimestamp("date")
                 );
-                
+
                 listEvents.add(event);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listEvents;
     }
-    
-    public void InsertData() {
+
+    @Override
+    public int InsertData() {
         String sql = "INSERT INTO events (name, description, locations_id, price, date) VALUES (?,?,?,?,?)";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
@@ -125,15 +140,18 @@ public class Event {
                 pstmt.setInt(3, this.getLocation().getId());
                 pstmt.setDouble(4, this.getPrice());
                 pstmt.setDate(5, new Date(this.getDate().getTime()));
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
-    public void UpdateData() {
+
+    @Override
+    public int UpdateData() {
         String sql = "UPDATE events SET name=?, description=?, locations_id=?, price=?, date=? WHERE id=?";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
@@ -143,48 +161,65 @@ public class Event {
                 pstmt.setInt(3, this.getLocation().getId());
                 pstmt.setDouble(4, this.getPrice());
                 pstmt.setDate(5, new Date(this.getDate().getTime()));
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
-    public void DeleteData() {
+
+    @Override
+    public int DeleteData() {
         String sql = "DELETE FROM events WHERE id=?";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
                 pstmt.setInt(1, this.getId());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
-    public static Event FindEvent(int id) {
+
+    public Event FindEvent(int id) {
         String sql = "SELECT * FROM events WHERE id=?";
         Event searchResult = null;
         try {
-            Statement stmt = Model.conn.createStatement();
-            ResultSet result = stmt.executeQuery(sql);
-            
-            if(result.next()) {
-                Location location = Location.FindLocation(result.getInt("locations_id"));
-                
-                searchResult = new Event(
-                        result.getInt("id"),
-                        result.getString("name"),
-                        result.getString("description"),
-                        location,
-                        result.getDouble("price"),
-                        result.getTimestamp("date")
-                );
+            if (!Model.conn.isClosed()) {
+                PreparedStatement pstmt = Model.conn.prepareStatement(sql);
+                pstmt.setInt(1, id);
+                result = pstmt.executeQuery();
+                if (result.next()) {
+                    Location searchedLocation = new Location(result.getInt("locations_id"));
+
+                    searchResult = new Event(
+                            result.getInt("id"),
+                            result.getString("name"),
+                            result.getString("description"),
+                            searchedLocation,
+                            result.getDouble("price"),
+                            result.getTimestamp("date")
+                    );
+                }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
         }
         return searchResult;
     }
+
+    @Override
+    public String toString() {
+        return this.getId() + ","
+                + this.getName() + ","
+                + this.getDescription() + ","
+                + this.getLocation().getId() + ","
+                + this.getPrice() + ","
+                + this.getDate().toString();
+    }
+    // </editor-fold>
 }

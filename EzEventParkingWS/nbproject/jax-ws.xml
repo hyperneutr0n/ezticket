@@ -4,6 +4,21 @@
     <service name="UserWS">
       <implementation-class>ezeventparking.services.UserWS</implementation-class>
     </service>
+    <service name="ParkingLotWS">
+      <implementation-class>ezeventparking.services.ParkingLotWS</implementation-class>
+    </service>
+    <service name="EventReservationWS">
+      <implementation-class>ezeventparking.services.EventReservationWS</implementation-class>
+    </service>
+    <service name="LocationWS">
+      <implementation-class>ezeventparking.services.LocationWS</implementation-class>
+    </service>
+    <service name="EventWS">
+      <implementation-class>ezeventparking.services.EventWS</implementation-class>
+    </service>
+    <service name="ParkingTicketWS">
+      <implementation-class>ezeventparking.services.ParkingTicketWS</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>

@@ -17,30 +17,45 @@ import javax.jws.WebParam;
 public class UserWS {
 
     /**
-     * This is a sample web service operation
-     */
-    @WebMethod(operationName = "hello")
-    public String hello(@WebParam(name = "name") String txt) {
-        return "Hello " + txt + " !";
-    }
-
-    /**
-     * Web service operation
+     * @param name the value of name
+     * @param email the value of email
+     * @param username the value of username
+     * @param password the value of password
+     * @return String message
      */
     @WebMethod(operationName = "Register")
-    public String Register(@WebParam(name = "name") String name, @WebParam(name = "email") String email, @WebParam(name = "username") String username, @WebParam(name = "password") String password) {
+    public String Register(
+            @WebParam(name = "name") String name,
+            @WebParam(name = "email") String email,
+            @WebParam(name = "username") String username,
+            @WebParam(name = "password") String password
+    ) {
         //TODO write your implementation code here:
         User user = new User(name, email, username, password);
-        user.InsertData();
-        return "BERHASIL";
+        int rowEffected = user.InsertData();
+
+        String message;
+        if (rowEffected == 0 || rowEffected > 1) {
+            message = "Registration failed.";
+        } else {
+            message = "You have been registered successfully.";
+        }
+        return message;
     }
 
     /**
-     * Web service operation
+     * @param username the value of username
+     * @param password the value of password
+     * @return int logged in user id
      */
     @WebMethod(operationName = "CheckLogin")
-    public int CheckLogin(@WebParam(name = "username") String username, @WebParam(name = "password") String password) {
+    public int CheckLogin(
+            @WebParam(name = "username") String username,
+            @WebParam(name = "password") String password
+    ) {
         //TODO write your implementation code here:
-        return User.CheckLogin(username, password);
+        User user = new User();
+        User userLogged = user.CheckLogin(username, password);
+        return userLogged.getId();
     }
 }

@@ -14,13 +14,22 @@ import java.util.logging.Logger;
  * @author user
  */
 public class ParkingLot extends Model {
+
+    // <editor-fold defaultstate="collapsed" desc="Data Members">
     private int id;
     private String name;
     private Location location;
     private int capacity;
     private double price;
+    // </editor-fold>
 
-    public ParkingLot() {}
+    // <editor-fold defaultstate="collapsed" desc="Constructors">
+    public ParkingLot() {
+    }
+
+    public ParkingLot(int id) {
+        this.id = id;
+    }
 
     public ParkingLot(String name, Location location, int capacity, double price) {
         this.name = name;
@@ -28,7 +37,7 @@ public class ParkingLot extends Model {
         this.capacity = capacity;
         this.price = price;
     }
-    
+
     public ParkingLot(int id, String name, Location location, int capacity, double price) {
         this.id = id;
         this.name = name;
@@ -36,7 +45,9 @@ public class ParkingLot extends Model {
         this.capacity = capacity;
         this.price = price;
     }
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Properties">
     public int getId() {
         return id;
     }
@@ -76,36 +87,39 @@ public class ParkingLot extends Model {
     public void setPrice(double price) {
         this.price = price;
     }
-    
-    public static ArrayList<ParkingLot> SelectData() {
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    public ArrayList<ParkingLot> SelectData() {
         ArrayList<ParkingLot> listParkingLots = new ArrayList<>();
         String sql = "SELECT * FROM parking_lots";
         try {
-            Statement stmt = Model.conn.createStatement();
-            ResultSet result = stmt.executeQuery(sql);
-            
-            while(result.next()) {
-                Location location = Location.FindLocation(result.getInt("locations_id"));
-                
+            stmt = Model.conn.createStatement();
+            result = stmt.executeQuery(sql);
+
+            while (result.next()) {
+                Location rowLocation = new Location(result.getInt("locations_id"));
+
                 ParkingLot parkingLot = new ParkingLot(
                         result.getInt("id"),
                         result.getString("name"),
-                        location,
+                        rowLocation,
                         result.getInt("capacity"),
                         result.getDouble("price")
                 );
-                
+
                 listParkingLots.add(parkingLot);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkingLot.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listParkingLots;
     }
-    
+
     @Override
-    public void InsertData() {
+    public int InsertData() {
         String sql = "INSERT INTO parking_lots (name, locations_id, capacity, price) VALUES (?, ?, ?, ?)";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
@@ -113,16 +127,18 @@ public class ParkingLot extends Model {
                 pstmt.setInt(2, this.getLocation().getId());
                 pstmt.setInt(3, this.getCapacity());
                 pstmt.setDouble(4, this.getPrice());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkingLot.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
+
     @Override
-    public void UpdateData() {
+    public int UpdateData() {
         String sql = "UPDATE parking_lots SET name=?, location_id=?, capacity=?, price=? WHERE id=?";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
@@ -131,50 +147,63 @@ public class ParkingLot extends Model {
                 pstmt.setInt(2, this.getLocation().getId());
                 pstmt.setInt(3, this.getCapacity());
                 pstmt.setDouble(4, this.getPrice());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkingLot.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
+
     @Override
-    public void DeleteData() {
+    public int DeleteData() {
         String sql = "DELETE FROM parking_lots WHERE id=?";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
                 pstmt.setInt(1, this.getId());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkingLot.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
-    public static ParkingLot FindParkingLot(int id) {
+
+    public ParkingLot FindParkingLot(int id) {
         String sql = "SELECT * FROM parking_lots WHERE id=?";
         ParkingLot searchResult = null;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
-                pstmt.setInt(2, id);
-                ResultSet result = pstmt.executeQuery();
+                pstmt.setInt(1, id);
+                result = pstmt.executeQuery();
                 if (result.next()) {
-                    Location location = Location.FindLocation(result.getInt("locations_id"));
-                
+                    Location searchedLocation = new Location(result.getInt("locations_id"));
+
                     searchResult = new ParkingLot(
-                        result.getInt("id"),
-                        result.getString("name"),
-                        location,
-                        result.getInt("capacity"),
-                        result.getDouble("price")
+                            result.getInt("id"),
+                            result.getString("name"),
+                            searchedLocation,
+                            result.getInt("capacity"),
+                            result.getDouble("price")
                     );
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ParkingLot.class.getName()).log(Level.SEVERE, null, ex);
         }
         return searchResult;
     }
+
+    @Override
+    public String toString() {
+        return this.getId() + ","
+                + this.getName() + ","
+                + this.getLocation().getId() + ","
+                + this.getCapacity() + ","
+                + this.getPrice();
+    }
+    // </editor-fold>
 }

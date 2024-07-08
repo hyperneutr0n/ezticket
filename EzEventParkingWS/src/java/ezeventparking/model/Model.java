@@ -14,6 +14,7 @@ import java.sql.Statement;
  * @author user
  */
 public abstract class Model {
+
     protected static Connection conn;
     protected Statement stmt;
     protected ResultSet result;
@@ -23,7 +24,7 @@ public abstract class Model {
         this.stmt = null;
         this.result = null;
     }
-    
+
     public Connection _getConnection() {
         if (Model.conn == null) {
             try {
@@ -35,8 +36,10 @@ public abstract class Model {
         }
         return Model.conn;
     }
-    
-    public abstract void InsertData();
-    public abstract void UpdateData();
-    public abstract void DeleteData();
+
+    public abstract int InsertData();
+
+    public abstract int UpdateData();
+
+    public abstract int DeleteData();
 }

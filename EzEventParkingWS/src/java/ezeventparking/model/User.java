@@ -14,21 +14,35 @@ import java.util.logging.Logger;
  * @author user
  */
 public class User extends Model {
+
+    // <editor-fold defaultstate="collapsed" desc="Data Members">
     private int id;
     private String name;
     private String email;
     private String username;
     private String password;
+    // </editor-fold>
 
-    public User() {}
-    
+    // <editor-fold defaultstate="collapsed" desc="Constructors">
+    public User() {
+    }
+
+    public User(int id) {
+        this.id = id;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public User(String name, String email, String username, String password) {
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
     }
-    
+
     public User(int id, String name, String email, String username, String password) {
         this.id = id;
         this.name = name;
@@ -36,7 +50,9 @@ public class User extends Model {
         this.username = username;
         this.password = password;
     }
+    // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Properties">
     public int getId() {
         return id;
     }
@@ -76,15 +92,17 @@ public class User extends Model {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public static ArrayList<User> SelectData() {
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    public ArrayList<User> SelectData() {
         ArrayList<User> listUsers = new ArrayList<>();
         String sql = "SELECT * FROM users";
         try {
-            Statement stmt = Model.conn.createStatement();
-            ResultSet result = stmt.executeQuery(sql);
-            
-            while(result.next()) {
+            stmt = Model.conn.createStatement();
+            result = stmt.executeQuery(sql);
+
+            while (result.next()) {
                 User user = new User(
                         result.getInt("id"),
                         result.getString("name"),
@@ -99,10 +117,11 @@ public class User extends Model {
         }
         return listUsers;
     }
-    
+
     @Override
-    public void InsertData() {
+    public int InsertData() {
         String sql = "INSERT INTO users (name, email, username, password) VALUES (?, ?, ?, ?)";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
@@ -110,16 +129,18 @@ public class User extends Model {
                 pstmt.setString(2, this.getEmail());
                 pstmt.setString(3, this.getUsername());
                 pstmt.setString(4, this.getPassword());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
+
     @Override
-    public void UpdateData() {
+    public int UpdateData() {
         String sql = "UPDATE users SET name=?, email=?, username=? WHERE id=?";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
@@ -127,42 +148,45 @@ public class User extends Model {
                 pstmt.setString(1, this.getName());
                 pstmt.setString(2, this.getEmail());
                 pstmt.setString(3, this.getUsername());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
+
     @Override
-    public void DeleteData() {
+    public int DeleteData() {
         String sql = "DELETE FROM users WHERE id=?";
+        int rowEffected = 0;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
                 pstmt.setInt(1, this.getId());
-                pstmt.executeUpdate();
+                rowEffected = pstmt.executeUpdate();
             }
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return rowEffected;
     }
-    
-    public static User FindUser(String username) {
+
+    public User FindUser(String username) {
         String sql = "SELECT * FROM users WHERE username=?";
         User searchResult = null;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
                 pstmt.setString(1, username);
-                ResultSet result = pstmt.executeQuery();
-                if(result.next()) {
+                result = pstmt.executeQuery();
+                if (result.next()) {
                     searchResult = new User(
-                        result.getInt("id"),
-                        result.getString("name"),
-                        result.getString("email"),
-                        result.getString("username"),
-                        ""
+                            result.getInt("id"),
+                            result.getString("name"),
+                            result.getString("email"),
+                            result.getString("username"),
+                            ""
                     );
                 }
             }
@@ -171,23 +195,30 @@ public class User extends Model {
         }
         return searchResult;
     }
-    
-    public static int CheckLogin(String username, String password) {
-        String sql = "SELECT id,password FROM users WHERE username=?";
-        int loginID = 0;
+
+    public User CheckLogin(String username, String password) {
+        String sql = "SELECT * FROM users WHERE username=?";
+        User user = null;
         try {
             if (!Model.conn.isClosed()) {
                 PreparedStatement pstmt = Model.conn.prepareStatement(sql);
                 pstmt.setString(1, username);
-                ResultSet result = pstmt.executeQuery();
+                result = pstmt.executeQuery();
                 result.next();
                 if (password.equals(result.getString("password"))) {
-                    loginID = result.getInt("id");
+                    user = new User(
+                            result.getInt("id"),
+                            result.getString("name"),
+                            result.getString("email"),
+                            result.getString("username"),
+                            ""
+                    );
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return loginID;
+        return user;
     }
+    // </editor-fold>
 }
