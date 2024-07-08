@@ -24,7 +24,7 @@ import javax.swing.JCheckBox;
  *
  * @author ASUS
  */
-public class formOrderTicket extends javax.swing.JFrame {
+public class formOrderTicket extends javax.swing.JFrame{
 
     /**
      * Creates new form formOrderTicket
@@ -34,6 +34,8 @@ public class formOrderTicket extends javax.swing.JFrame {
     BufferedReader msgFromServer;
     DataOutputStream msgToServer;
     public int count;
+    public String userID;
+    public String parkingLotID;
 
     public formOrderTicket() {
         initComponents();
@@ -304,7 +306,7 @@ public class formOrderTicket extends javax.swing.JFrame {
             // TODO add your handling code here:
             clientSocket = new Socket("localhost", 6000);
             String ticket = labelTicket.getText();
-            String msg = "PARKING/ORDER/" + ticket + "/" + labelDate.getText() + " 00:00:00";
+            String msg = "parkingticket/buyparkingticket/" + ticket + "/" + labelDate.getText() + " 00:00:00.0";
             sendMessage(msg);
 
             String response = getMessage();

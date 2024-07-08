@@ -28,6 +28,7 @@ public class formMenuParking extends javax.swing.JFrame {
     Socket clientSocket;
     BufferedReader msgFromServer;
     DataOutputStream msgToServer;
+    public String userID;
 
     public formMenuParking() {
         initComponents();
@@ -188,16 +189,17 @@ public class formMenuParking extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxLocationActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        try {
+            try {
 
             clientSocket = new Socket("localhost", 6000);
             int indexLocation = jComboBoxLocation.getSelectedIndex() + 1;
             String location = String.valueOf(indexLocation);
+            String locationString = jComboBoxLocation.getName();
             Date dateOriginal = jDateChooser1.getDate();
             Timestamp dateTimeStamp = new Timestamp(dateOriginal.getTime());
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            String dateString = dateFormat.format(dateTimeStamp) + " 00:00:00";
-            String msg = "PARKING/SEARCHPARKING/" + location + "/" + dateString;
+            String dateString = dateFormat.format(dateTimeStamp) + " 00:00:00.0";
+            String msg = "parkingticket/getoccupiedslot/" + dateString + "/" + location;
             System.out.println(location);
             System.out.println(dateString);
             System.out.println(msg);
@@ -207,11 +209,14 @@ public class formMenuParking extends javax.swing.JFrame {
             String[] responses = response.split("/");
 
             if (responses[0].equals("SUCCESS")) {
+                String capacity = responses[1];
                 formOrderTicket frm = new formOrderTicket();
                 frm.labelLokasi.setText(location);
                 frm.labelDate.setText(dateFormat.format(dateTimeStamp));
+                frm.userID = userID;
+                frm.parkingLotID = locationString;
                 
-                for(int i = 1;i<= responses.length;i++){
+                for(int i = 2;i<= responses.length;i++){
                     frm.listBoughtTickets.add(responses[i]);
                     
                 }
