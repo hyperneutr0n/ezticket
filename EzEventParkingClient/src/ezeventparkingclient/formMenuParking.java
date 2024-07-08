@@ -211,16 +211,20 @@ public class formMenuParking extends javax.swing.JFrame {
             if (responses[0].equals("SUCCESS")) {
                 String capacity = responses[1];
                 formOrderTicket frm = new formOrderTicket();
+                frm.labelTotal.setText(capacity);
                 frm.labelLokasi.setText(location);
                 frm.labelDate.setText(dateFormat.format(dateTimeStamp));
                 frm.userID = userID;
                 frm.parkingLotID = locationString;
-                
+                int countOccupied= 0;
                 for(int i = 2;i<= responses.length;i++){
                     frm.listBoughtTickets.add(responses[i]);
-                    
+                    countOccupied++;
                 }
-                
+                frm.labelOccupied.setText(String.valueOf(countOccupied));
+                int available;
+                available =Integer.parseInt(capacity) - countOccupied;
+                frm.labelAvailable.setText(String.valueOf(available));
                 
                 
                 

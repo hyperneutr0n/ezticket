@@ -89,24 +89,18 @@ public class formOrderTicket extends javax.swing.JFrame{
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Available:");
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Occupied:");
 
-        labelAvailable.setForeground(new java.awt.Color(0, 0, 0));
         labelAvailable.setText("lorem");
 
-        labelOccupied.setForeground(new java.awt.Color(0, 0, 0));
         labelOccupied.setText("lorem");
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Total:");
 
-        labelTotal.setForeground(new java.awt.Color(0, 0, 0));
         labelTotal.setText("lorem");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -185,12 +179,10 @@ public class formOrderTicket extends javax.swing.JFrame{
         jPanel1.add(jPanel3);
         jPanel3.setBounds(40, 110, 874, 331);
 
-        labelTicket.setForeground(new java.awt.Color(0, 0, 0));
         labelTicket.setText("A1,A2,A4");
         jPanel1.add(labelTicket);
         labelTicket.setBounds(710, 600, 110, 21);
 
-        labelLokasi.setForeground(new java.awt.Color(0, 0, 0));
         labelLokasi.setText("OHIO");
         jPanel1.add(labelLokasi);
         labelLokasi.setBounds(710, 540, 110, 21);
@@ -207,7 +199,6 @@ public class formOrderTicket extends javax.swing.JFrame{
         btnOrder.setBounds(830, 630, 90, 29);
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel5.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -228,7 +219,6 @@ public class formOrderTicket extends javax.swing.JFrame{
         jLabel9.setText("Ticket");
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Available:");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -265,22 +255,18 @@ public class formOrderTicket extends javax.swing.JFrame{
         jPanel5.setBounds(-8, 0, 970, 88);
         jPanel5.getAccessibleContext().setAccessibleParent(jPanel5);
 
-        labelbiasa1.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa1.setText("Booked Tickets:");
         jPanel1.add(labelbiasa1);
         labelbiasa1.setBounds(600, 600, 110, 21);
 
-        labelDate.setForeground(new java.awt.Color(0, 0, 0));
         labelDate.setText("DATE");
         jPanel1.add(labelDate);
         labelDate.setBounds(710, 570, 110, 21);
 
-        labelbiasa2.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa2.setText("Tanggal:");
         jPanel1.add(labelbiasa2);
         labelbiasa2.setBounds(600, 570, 110, 21);
 
-        labelbiasa3.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa3.setText("Lokasi:");
         jPanel1.add(labelbiasa3);
         labelbiasa3.setBounds(600, 540, 110, 21);
@@ -506,12 +492,12 @@ public class formOrderTicket extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel labelAccount;
-    private javax.swing.JLabel labelAvailable;
+    public javax.swing.JLabel labelAvailable;
     public javax.swing.JLabel labelDate;
     public javax.swing.JLabel labelLokasi;
-    private javax.swing.JLabel labelOccupied;
+    public javax.swing.JLabel labelOccupied;
     private javax.swing.JLabel labelTicket;
-    private javax.swing.JLabel labelTotal;
+    public javax.swing.JLabel labelTotal;
     private javax.swing.JLabel labelbiasa1;
     private javax.swing.JLabel labelbiasa2;
     private javax.swing.JLabel labelbiasa3;
