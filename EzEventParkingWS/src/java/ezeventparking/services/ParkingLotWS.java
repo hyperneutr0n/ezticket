@@ -55,12 +55,17 @@ public class ParkingLotWS {
     @WebMethod(operationName = "GetAllParkingLot")
     public String GetAllParkingLot() {
         //TODO write your implementation code here:
-        StringJoiner message = new StringJoiner(";");
+        StringJoiner message = new StringJoiner("/");
         ParkingLot objParkingLot = new ParkingLot();
         ArrayList<ParkingLot> parkingLotList = objParkingLot.SelectData();
 
-        for (ParkingLot parkingLot : parkingLotList) {
-            message.add(parkingLot.toString());
+        if (parkingLotList.isEmpty()) {
+            message.add("FAILED");
+        } else {
+            message.add("SUCCESS");
+            for (ParkingLot parkingLot : parkingLotList) {
+                message.add(parkingLot.getId() + "," + parkingLot.getName());
+            }
         }
         return message.toString();
     }

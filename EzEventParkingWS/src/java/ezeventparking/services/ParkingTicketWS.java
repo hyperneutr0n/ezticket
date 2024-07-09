@@ -59,12 +59,17 @@ public class ParkingTicketWS {
     @WebMethod(operationName = "GetAllParkingTicket")
     public String GetAllParkingTicket() {
         //TODO write your implementation code here:
-        StringJoiner message = new StringJoiner(";");
+        StringJoiner message = new StringJoiner("/");
         ParkingTicket objParkingTicket = new ParkingTicket();
         ArrayList<ParkingTicket> parkingTicketList = objParkingTicket.SelectData();
 
-        for (ParkingTicket parkingTicket : parkingTicketList) {
-            message.add(parkingTicket.toString());
+        if (parkingTicketList.isEmpty()) {
+            message.add("FAILED");
+        } else {
+            message.add("SUCCESS");
+            for (ParkingTicket parkingTicket : parkingTicketList) {
+                message.add(parkingTicket.toString());
+            }
         }
         return message.toString();
     }
@@ -83,15 +88,21 @@ public class ParkingTicketWS {
         ParkingTicket objParkingTicket = new ParkingTicket();
         ArrayList<Object> result = objParkingTicket.FindOccupiedSlot(reservDate, parkingLotID);
 
-        String capacity = (String) result.get(0) + ";";
-        result.remove(0);
+        StringJoiner message = new StringJoiner("/");
 
-        StringJoiner message = new StringJoiner(",");
-        for (Object slot : result) {
-            message.add((String) slot);
+        if (result.isEmpty()) {
+            message.add("FAILED");
+        } else {
+            message.add("SUCCESS");
+            message.add(String.valueOf(result.get(0)));
+            result.remove(0);
+
+            for (Object slot : result) {
+                message.add(String.valueOf(slot));
+            }
         }
 
-        return capacity + message.toString();
+        return message.toString();
     }
 
 }

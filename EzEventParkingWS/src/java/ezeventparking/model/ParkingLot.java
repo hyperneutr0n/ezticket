@@ -197,6 +197,33 @@ public class ParkingLot extends Model {
         return searchResult;
     }
 
+    public ArrayList<ParkingLot> SelectDataByLocation(int locationID) {
+        ArrayList<ParkingLot> listParkingLots = new ArrayList<>();
+        String sql = "SELECT * FROM parking_lots WHERE locations_id=?";
+        try {
+            PreparedStatement pstmt = Model.conn.prepareStatement(sql);
+            pstmt.setInt(1, locationID);
+            result = pstmt.executeQuery();
+
+            while (result.next()) {
+                Location rowLocation = new Location(locationID);
+
+                ParkingLot parkingLot = new ParkingLot(
+                        result.getInt("id"),
+                        result.getString("name"),
+                        rowLocation,
+                        result.getInt("capacity"),
+                        result.getDouble("price")
+                );
+
+                listParkingLots.add(parkingLot);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ParkingLot.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listParkingLots;
+    }
+
     @Override
     public String toString() {
         return this.getId() + ","

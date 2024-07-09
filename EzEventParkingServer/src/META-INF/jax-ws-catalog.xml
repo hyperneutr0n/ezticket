@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?wsdl" uri="wsdl/localhost_8080/EzEventParkingWS/UserWS.wsdl"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?xsd=1" uri="wsdl/localhost_8080/EzEventParkingWS/UserWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/EventWS?wsdl" uri="wsdl/localhost_8080/EzEventParkingWS/EventWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/EventWS?xsd=1" uri="wsdl/localhost_8080/EzEventParkingWS/EventWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingLotWS?wsdl" uri="wsdl/localhost_8080/EzEventParkingWS/ParkingLotWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingLotWS?xsd=1" uri="wsdl/localhost_8080/EzEventParkingWS/ParkingLotWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingTicketWS?wsdl" uri="wsdl/localhost_8080/EzEventParkingWS/ParkingTicketWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingTicketWS?xsd=1" uri="wsdl/localhost_8080/EzEventParkingWS/ParkingTicketWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/EventReservationWS?wsdl" uri="wsdl/localhost_8080/EzEventParkingWS/EventReservationWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/EventReservationWS?xsd=1" uri="wsdl/localhost_8080/EzEventParkingWS/EventReservationWS.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/EzEventParkingWS/LocationWS?wsdl" uri="wsdl/localhost_8080/EzEventParkingWS/LocationWS.wsdl"/>
     <system systemId="http://localhost:8080/EzEventParkingWS/LocationWS?xsd=1" uri="wsdl/localhost_8080/EzEventParkingWS/LocationWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?wsdl" uri="wsdl/localhost_8080/EzEventParkingWS/UserWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?xsd=1" uri="wsdl/localhost_8080/EzEventParkingWS/UserWS.xsd_1.xsd"/>
 </catalog>

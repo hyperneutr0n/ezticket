@@ -46,16 +46,21 @@ public class UserWS {
     /**
      * @param username the value of username
      * @param password the value of password
-     * @return int logged in user id
+     * @return String logged in user
      */
     @WebMethod(operationName = "CheckLogin")
-    public int CheckLogin(
+    public String CheckLogin(
             @WebParam(name = "username") String username,
             @WebParam(name = "password") String password
     ) {
         //TODO write your implementation code here:
         User user = new User();
         User userLogged = user.CheckLogin(username, password);
-        return userLogged.getId();
+
+        if (userLogged == null) {
+            return "null";
+        } else {
+            return userLogged.toString();
+        }
     }
 }

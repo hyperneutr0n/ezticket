@@ -10,15 +10,34 @@
 <message name="AddLocationResponse">
 <part name="parameters" element="tns:AddLocationResponse"/>
 </message>
+<message name="GetAllLocation">
+<part name="parameters" element="tns:GetAllLocation"/>
+</message>
+<message name="GetAllLocationResponse">
+<part name="parameters" element="tns:GetAllLocationResponse"/>
+</message>
 <portType name="LocationWS">
 <operation name="AddLocation">
 <input wsam:Action="http://services.ezeventparking/LocationWS/AddLocationRequest" message="tns:AddLocation"/>
 <output wsam:Action="http://services.ezeventparking/LocationWS/AddLocationResponse" message="tns:AddLocationResponse"/>
 </operation>
+<operation name="GetAllLocation">
+<input wsam:Action="http://services.ezeventparking/LocationWS/GetAllLocationRequest" message="tns:GetAllLocation"/>
+<output wsam:Action="http://services.ezeventparking/LocationWS/GetAllLocationResponse" message="tns:GetAllLocationResponse"/>
+</operation>
 </portType>
 <binding name="LocationWSPortBinding" type="tns:LocationWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
 <operation name="AddLocation">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAllLocation">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

@@ -59,12 +59,17 @@ public class EventWS {
     @WebMethod(operationName = "GetAllEvent")
     public String GetAllEvent() {
         //TODO write your implementation code here:
-        StringJoiner message = new StringJoiner(";");
+        StringJoiner message = new StringJoiner("/");
         Event objEvent = new Event();
         ArrayList<Event> eventList = objEvent.SelectData();
 
-        for (Event event : eventList) {
-            message.add(event.toString());
+        if (eventList.isEmpty()) {
+            message.add("FAILED");
+        } else {
+            message.add("SUCCESS");
+            for (Event event : eventList) {
+                message.add(event.toString());
+            }
         }
         return message.toString();
     }

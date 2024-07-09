@@ -220,5 +220,10 @@ public class User extends Model {
         }
         return user;
     }
+
+    @Override
+    public String toString() {
+        return this.getId() + "," + this.getName() + "," + this.getEmail() + "," + this.getUsername();
+    }
     // </editor-fold>
 }
