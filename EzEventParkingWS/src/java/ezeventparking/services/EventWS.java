@@ -35,11 +35,11 @@ public class EventWS {
             @WebParam(name = "description") String description,
             @WebParam(name = "locationID") int locationID,
             @WebParam(name = "price") double price,
-            @WebParam(name = "date") Timestamp date
+            @WebParam(name = "date") String date
     ) {
         //TODO write your implementation code here:
         Location location = new Location(locationID);
-        Event event = new Event(name, description, location, price, date);
+        Event event = new Event(name, description, location, price, Timestamp.valueOf(date));
         int rowEffected = event.InsertData();
 
         String message;

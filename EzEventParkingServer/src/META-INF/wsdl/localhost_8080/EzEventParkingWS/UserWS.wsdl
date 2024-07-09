@@ -4,31 +4,31 @@
 <xsd:import namespace="http://services.ezeventparking/" schemaLocation="http://localhost:8080/EzEventParkingWS/UserWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="Register">
-<part name="parameters" element="tns:Register"/>
-</message>
-<message name="RegisterResponse">
-<part name="parameters" element="tns:RegisterResponse"/>
-</message>
 <message name="CheckLogin">
 <part name="parameters" element="tns:CheckLogin"/>
 </message>
 <message name="CheckLoginResponse">
 <part name="parameters" element="tns:CheckLoginResponse"/>
 </message>
+<message name="Register">
+<part name="parameters" element="tns:Register"/>
+</message>
+<message name="RegisterResponse">
+<part name="parameters" element="tns:RegisterResponse"/>
+</message>
 <portType name="UserWS">
-<operation name="Register">
-<input wsam:Action="http://services.ezeventparking/UserWS/RegisterRequest" message="tns:Register"/>
-<output wsam:Action="http://services.ezeventparking/UserWS/RegisterResponse" message="tns:RegisterResponse"/>
-</operation>
 <operation name="CheckLogin">
 <input wsam:Action="http://services.ezeventparking/UserWS/CheckLoginRequest" message="tns:CheckLogin"/>
 <output wsam:Action="http://services.ezeventparking/UserWS/CheckLoginResponse" message="tns:CheckLoginResponse"/>
 </operation>
+<operation name="Register">
+<input wsam:Action="http://services.ezeventparking/UserWS/RegisterRequest" message="tns:Register"/>
+<output wsam:Action="http://services.ezeventparking/UserWS/RegisterResponse" message="tns:RegisterResponse"/>
+</operation>
 </portType>
 <binding name="UserWSPortBinding" type="tns:UserWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="Register">
+<operation name="CheckLogin">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -37,7 +37,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="CheckLogin">
+<operation name="Register">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

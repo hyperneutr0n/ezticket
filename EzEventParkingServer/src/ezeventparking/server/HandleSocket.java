@@ -65,6 +65,13 @@ public class HandleSocket extends Thread {
         splitMessage.remove(0);
 
         String message;
+        String name;
+        int locationID;
+        double price;
+        int userID;
+        int parkingLotID;
+        int eventID;
+        String reservationDate;
         switch (className) {
             case "user":
                 switch (methodName) {
@@ -103,10 +110,10 @@ public class HandleSocket extends Thread {
             case "parkinglot":
                 switch (methodName) {
                     case "addparkinglot":
-                        String name = splitMessage.get(0);
-                        int locationID = Integer.parseInt(splitMessage.get(1));
+                        name = splitMessage.get(0);
+                        locationID = Integer.parseInt(splitMessage.get(1));
                         int capacity = Integer.parseInt(splitMessage.get(2));
-                        double price = Double.parseDouble(splitMessage.get(3));
+                        price = Double.parseDouble(splitMessage.get(3));
                         message = parentServer.parkingLotPort.addParkingLot(name, locationID, capacity, price);
                         SendMessage(message);
                         break;
@@ -122,39 +129,70 @@ public class HandleSocket extends Thread {
             case "event":
                 switch (methodName) {
                     case "addevent":
-
+                        name = splitMessage.get(0);
+                        String description = splitMessage.get(1);
+                        locationID = Integer.parseInt(splitMessage.get(2));
+                        price = Double.parseDouble(splitMessage.get(3));
+                        String date = splitMessage.get(4);
+                        message = parentServer.eventPort.addEvent(name, description, locationID, price, date);
+                        SendMessage(message);
                         break;
                     case "getallevent":
-
+                        message = parentServer.eventPort.getAllEvent();
+                        SendMessage(message);
                         break;
                     default:
-                        throw new AssertionError();
+                        message = "Method " + methodName + " in class " + className + " doesn't exist!";
+                        SendMessage(message);
                 }
                 break;
             case "parkingticket":
                 switch (methodName) {
                     case "buyparkingticket":
-                        int userID = Integer.parseInt(splitMessage.get(0));
-                        int parkingLotID = Integer.parseInt(splitMessage.get(1));
+                        userID = Integer.parseInt(splitMessage.get(0));
+                        parkingLotID = Integer.parseInt(splitMessage.get(1));
                         String slotNumber = splitMessage.get(2);
                         double ticketPrice = Double.parseDouble(splitMessage.get(3));
-                        String reservationDate = splitMessage.get(4);
+                        reservationDate = splitMessage.get(4);
                         message = parentServer.parkingTicketPort.buyParkingTicket(userID, parkingLotID, slotNumber, ticketPrice, reservationDate);
                         SendMessage(message);
                         break;
                     case "getoccupiedslot":
-                        String reservDate = splitMessage.get(0);
-                        int plID = Integer.parseInt(splitMessage.get(1));
-                        message = parentServer.parkingTicketPort.getOccupiedSlot(reservDate, plID);
+                        reservationDate = splitMessage.get(0);
+                        parkingLotID = Integer.parseInt(splitMessage.get(1));
+                        message = parentServer.parkingTicketPort.getOccupiedSlot(reservationDate, parkingLotID);
                         SendMessage(message);
-                        System.out.println(message + "\n");
+                        break;
+                    case "getalluserticket":
+                        userID = Integer.parseInt(splitMessage.get(0));
+                        message = parentServer.parkingTicketPort.getAllUserTicket(userID);
+                        SendMessage(message);
                         break;
                     default:
                         SendMessage("Method " + methodName + " in class " + className + " doesn't exist!");
                 }
                 break;
             case "eventreservation":
-
+                switch (methodName) {
+                    case "buyeventreservation":
+                        userID = Integer.parseInt(splitMessage.get(0));
+                        eventID = Integer.parseInt(splitMessage.get(1));
+                        reservationDate = splitMessage.get(2);
+                        message = parentServer.eventReservationPort.buyEventReservation(userID, eventID, reservationDate);
+                        SendMessage(message);
+                        break;
+                    case "getalleventreservation":
+                        message = parentServer.eventReservationPort.getAllEventReservation();
+                        SendMessage(message);
+                        break;
+                    case "getalluserreservation":
+                        userID = Integer.parseInt(splitMessage.get(0));
+                        message = parentServer.eventReservationPort.getAllUserReservation(userID);
+                        SendMessage(message);
+                        break;
+                    default:
+                        SendMessage("Method " + methodName + " in class " + className + " doesn't exist!");
+                }
                 break;
             default:
                 SendMessage("Class " + className + " doesn't exist!");

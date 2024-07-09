@@ -279,6 +279,38 @@ public class ParkingTicket extends Model {
         return output;
     }
 
+    public ArrayList<ParkingTicket> SelectUsersTicket(int userID) {
+        ArrayList<ParkingTicket> listParkingTickets = new ArrayList<>();
+        String sql = "SELECT * FROM parking_tickets WHERE users_id=?";
+        try {
+            PreparedStatement pstmt = Model.conn.prepareStatement(sql);
+            pstmt.setInt(1, userID);
+            result = pstmt.executeQuery();
+
+            while (result.next()) {
+                User rowUser = new User(result.getInt("users_id"));
+
+                ParkingLot rowParkingLot = new ParkingLot(result.getInt("parking_lots_id"));
+
+                ParkingTicket parkingTicket = new ParkingTicket(
+                        result.getInt("id"),
+                        rowUser,
+                        rowParkingLot,
+                        result.getString("slot_number"),
+                        result.getDouble("ticket_price"),
+                        result.getTimestamp("reservation_date"),
+                        result.getTimestamp("entry_date"),
+                        result.getTimestamp("exit_date")
+                );
+
+                listParkingTickets.add(parkingTicket);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ParkingTicket.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listParkingTickets;
+    }
+
     @Override
     public String toString() {
         String entry_date;

@@ -8,14 +8,18 @@
 
 <xs:element name="GetAllParkingTicketResponse" type="tns:GetAllParkingTicketResponse"/>
 
+<xs:element name="GetAllUserTicket" type="tns:GetAllUserTicket"/>
+
+<xs:element name="GetAllUserTicketResponse" type="tns:GetAllUserTicketResponse"/>
+
 <xs:element name="GetOccupiedSlot" type="tns:GetOccupiedSlot"/>
 
 <xs:element name="GetOccupiedSlotResponse" type="tns:GetOccupiedSlotResponse"/>
 
 <xs:complexType name="GetOccupiedSlot">
 <xs:sequence>
-<xs:element name="arg0" type="xs:string" minOccurs="0"/>
-<xs:element name="arg1" type="xs:int"/>
+<xs:element name="reservationDate" type="xs:string" minOccurs="0"/>
+<xs:element name="parkingLotID" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -46,6 +50,18 @@
 </xs:complexType>
 
 <xs:complexType name="GetAllParkingTicketResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetAllUserTicket">
+<xs:sequence>
+<xs:element name="userID" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetAllUserTicketResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>

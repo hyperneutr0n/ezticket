@@ -4,6 +4,12 @@
 <xsd:import namespace="http://services.ezeventparking/" schemaLocation="http://localhost:8080/EzEventParkingWS/ParkingTicketWS?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="GetAllUserTicket">
+<part name="parameters" element="tns:GetAllUserTicket"/>
+</message>
+<message name="GetAllUserTicketResponse">
+<part name="parameters" element="tns:GetAllUserTicketResponse"/>
+</message>
 <message name="GetOccupiedSlot">
 <part name="parameters" element="tns:GetOccupiedSlot"/>
 </message>
@@ -23,6 +29,10 @@
 <part name="parameters" element="tns:GetAllParkingTicketResponse"/>
 </message>
 <portType name="ParkingTicketWS">
+<operation name="GetAllUserTicket">
+<input wsam:Action="http://services.ezeventparking/ParkingTicketWS/GetAllUserTicketRequest" message="tns:GetAllUserTicket"/>
+<output wsam:Action="http://services.ezeventparking/ParkingTicketWS/GetAllUserTicketResponse" message="tns:GetAllUserTicketResponse"/>
+</operation>
 <operation name="GetOccupiedSlot">
 <input wsam:Action="http://services.ezeventparking/ParkingTicketWS/GetOccupiedSlotRequest" message="tns:GetOccupiedSlot"/>
 <output wsam:Action="http://services.ezeventparking/ParkingTicketWS/GetOccupiedSlotResponse" message="tns:GetOccupiedSlotResponse"/>
@@ -38,6 +48,15 @@
 </portType>
 <binding name="ParkingTicketWSPortBinding" type="tns:ParkingTicketWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="GetAllUserTicket">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="GetOccupiedSlot">
 <soap:operation soapAction=""/>
 <input>

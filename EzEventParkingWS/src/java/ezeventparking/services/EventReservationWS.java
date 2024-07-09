@@ -56,14 +56,42 @@ public class EventReservationWS {
     @WebMethod(operationName = "GetAllEventReservation")
     public String GetAllEventReservation() {
         //TODO write your implementation code here:
-        StringJoiner message = new StringJoiner(";");
+        StringJoiner message = new StringJoiner("/");
         EventReservation objEventReservation = new EventReservation();
         ArrayList<EventReservation> eventReservationList = objEventReservation.SelectData();
 
-        for (EventReservation eventReservation : eventReservationList) {
-            message.add(eventReservation.toString());
+        if (eventReservationList.isEmpty()) {
+            message.add("FAILED");
+        } else {
+            message.add("SUCCESS");
+            for (EventReservation eventReservation : eventReservationList) {
+                message.add(eventReservation.toString());
+            }
         }
-        return null;
+        return message.toString();
     }
 
+    /**
+     * Web service operation
+     *
+     * @param userID the value of userID
+     * @return String message
+     */
+    @WebMethod(operationName = "GetAllUserReservation")
+    public String GetAllUserReservation(@WebParam(name = "userID") int userID) {
+        //TODO write your implementation code here:
+        StringJoiner message = new StringJoiner("/");
+        EventReservation objEventReservation = new EventReservation();
+        ArrayList<EventReservation> eventReservationList = objEventReservation.SelectUserReservation(userID);
+
+        if (eventReservationList.isEmpty()) {
+            message.add("FAILED");
+        } else {
+            message.add("SUCCESS");
+            for (EventReservation eventReservation : eventReservationList) {
+                message.add(eventReservation.toString());
+            }
+        }
+        return message.toString();
+    }
 }

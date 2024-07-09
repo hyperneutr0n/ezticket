@@ -82,7 +82,10 @@ public class ParkingTicketWS {
      * @return String message
      */
     @WebMethod(operationName = "GetOccupiedSlot")
-    public String GetOccupiedSlot(String reservationDate, int parkingLotID) {
+    public String GetOccupiedSlot(
+            @WebParam(name = "reservationDate") String reservationDate,
+            @WebParam(name = "parkingLotID") int parkingLotID
+    ) {
         //TODO write your implementation code here:
         Timestamp reservDate = Timestamp.valueOf(reservationDate);
         ParkingTicket objParkingTicket = new ParkingTicket();
@@ -108,4 +111,27 @@ public class ParkingTicketWS {
         return message.toString();
     }
 
+    /**
+     * Web service operation
+     *
+     * @param userID the value of userID
+     * @return String message
+     */
+    @WebMethod(operationName = "GetAllUserTicket")
+    public String GetAllUserTicket(@WebParam(name = "userID") int userID) {
+        //TODO write your implementation code here:
+        StringJoiner message = new StringJoiner("/");
+        ParkingTicket objParkingTicket = new ParkingTicket();
+        ArrayList<ParkingTicket> parkingTicketList = objParkingTicket.SelectUsersTicket(userID);
+
+        if (parkingTicketList.isEmpty()) {
+            message.add("FAILED");
+        } else {
+            message.add("SUCCESS");
+            for (ParkingTicket parkingTicket : parkingTicketList) {
+                message.add(parkingTicket.toString());
+            }
+        }
+        return message.toString();
+    }
 }

@@ -49,12 +49,17 @@ public class LocationWS {
     @WebMethod(operationName = "GetAllLocation")
     public String GetAllLocation() {
         //TODO write your implementation code here:
-        StringJoiner message = new StringJoiner(";");
+        StringJoiner message = new StringJoiner("/");
         Location objLocation = new Location();
         ArrayList<Location> locationList = objLocation.SelectData();
 
-        for (Location location : locationList) {
-            message.add(location.toString());
+        if (locationList.isEmpty()) {
+            message.add("FAILED");
+        } else {
+            message.add("SUCCESS");
+            for (Location location : locationList) {
+                message.add(location.toString());
+            }
         }
         return message.toString();
     }

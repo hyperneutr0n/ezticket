@@ -182,6 +182,34 @@ public class EventReservation extends Model {
         return searchedResult;
     }
 
+    public ArrayList<EventReservation> SelectUserReservation(int userID) {
+        ArrayList<EventReservation> listEventReservations = new ArrayList<>();
+        String sql = "SELECT * FROM event_reservations WHERE users_id=?";
+        try {
+            PreparedStatement pstmt = Model.conn.prepareStatement(sql);
+            pstmt.setInt(1, userID);
+            result = pstmt.executeQuery();
+
+            while (result.next()) {
+                User rowUser = new User(result.getInt("users_id"));
+
+                Event rowEvent = new Event(result.getInt("parking_lots_id"));
+
+                EventReservation eventReservation = new EventReservation(
+                        rowUser,
+                        rowEvent,
+                        result.getTimestamp("reservation_date"),
+                        result.getTimestamp("claim_date")
+                );
+
+                listEventReservations.add(eventReservation);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EventReservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listEventReservations;
+    }
+
     @Override
     public String toString() {
         String claim_date;
