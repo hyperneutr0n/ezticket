@@ -69,7 +69,6 @@ public class formOrderTicket extends javax.swing.JFrame {
         labelAccount = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         labelbiasa1 = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
         labelbiasa2 = new javax.swing.JLabel();
@@ -219,9 +218,6 @@ public class formOrderTicket extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Ticket");
 
-        jLabel6.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Available:");
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -229,9 +225,7 @@ public class formOrderTicket extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel10)
-                .addGap(44, 44, 44)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 550, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 659, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
@@ -247,8 +241,7 @@ public class formOrderTicket extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(labelAccount)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel9))
                 .addGap(31, 31, 31))
         );
 
@@ -486,14 +479,13 @@ public class formOrderTicket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JLabel labelAccount;
+    public javax.swing.JLabel labelAccount;
     public javax.swing.JLabel labelAvailable;
     public javax.swing.JLabel labelDate;
     public javax.swing.JLabel labelLokasi;

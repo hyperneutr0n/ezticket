@@ -152,24 +152,35 @@ public class formLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
-            clientSocket = new Socket("localhost", 6000);
+            clientSocket = new Socket("localhost", 12345);
 
             // TODO add your handling code here:
             String username = txtUsername.getText();
             String password = txtPassword.getText();
 
-            String msg = "LOGIN~" + username + "~" + password + "\n";
+            String msg = "user/checklogin/" + username + "/" + password + "\n";
 
             sendMessage(msg);
-
             String chatServer;
             BufferedReader chatFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             chatServer = chatFromServer.readLine();
-            if (chatServer.equals("SUCCESS")) {
+            if (!chatServer.equals("null")) {
+                String response[] = chatServer.split(",");
+
+                String ID = response[0];
+                String usernameSEND = response[3];
+                
+                formMenuMain frm = new formMenuMain();
+                frm.userID = ID;
+                frm.username = usernameSEND;
+                frm.labelAccount.setText(usernameSEND);
+                
+                frm.setVisible(true);
+
 //                formMenu frm = new formMenu();
 //                frm.username = txtUsername.getText();
 //                frm.setVisible(true);
-                this.dispose();
+                this.setVisible(false);
 
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Username of Password is wrong!");

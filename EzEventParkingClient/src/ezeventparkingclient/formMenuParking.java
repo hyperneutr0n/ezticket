@@ -219,6 +219,7 @@ public class formMenuParking extends javax.swing.JFrame {
                 frm.labelLokasi.setText(locationString);
                 frm.labelDate.setText(dateFormat.format(dateTimeStamp));
                 frm.userID = userID;
+                frm.labelAccount.setText(this.labelAccount.getText());
                 frm.parkingLotID = String.valueOf(id);
                 int countOccupied = 0;
                 for (int i = 2; i < responses.length; i++) {
@@ -357,6 +358,6 @@ public class formMenuParking extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JLabel labelAccount;
+    public javax.swing.JLabel labelAccount;
     // End of variables declaration//GEN-END:variables
 }
