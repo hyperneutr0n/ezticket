@@ -4,6 +4,10 @@
 
 <xs:element name="BuyEventReservationResponse" type="tns:BuyEventReservationResponse"/>
 
+<xs:element name="ClaimReservation" type="tns:ClaimReservation"/>
+
+<xs:element name="ClaimReservationResponse" type="tns:ClaimReservationResponse"/>
+
 <xs:element name="GetAllEventReservation" type="tns:GetAllEventReservation"/>
 
 <xs:element name="GetAllEventReservationResponse" type="tns:GetAllEventReservationResponse"/>
@@ -33,6 +37,20 @@
 </xs:complexType>
 
 <xs:complexType name="GetAllUserReservationResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ClaimReservation">
+<xs:sequence>
+<xs:element name="userID" type="xs:int"/>
+<xs:element name="eventID" type="xs:int"/>
+<xs:element name="claimDate" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ClaimReservationResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:string" minOccurs="0"/>
 </xs:sequence>

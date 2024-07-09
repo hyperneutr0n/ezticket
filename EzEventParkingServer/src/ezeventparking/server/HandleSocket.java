@@ -190,6 +190,13 @@ public class HandleSocket extends Thread {
                         message = parentServer.eventReservationPort.getAllUserReservation(userID);
                         SendMessage(message);
                         break;
+                    case "claimreservation":
+                        userID = Integer.parseInt(splitMessage.get(0));
+                        eventID = Integer.parseInt(splitMessage.get(1));
+                        String claimDate = splitMessage.get(2);
+                        message = parentServer.eventReservationPort.claimReservation(userID, eventID, claimDate);
+                        SendMessage(message);
+                        break;
                     default:
                         SendMessage("Method " + methodName + " in class " + className + " doesn't exist!");
                 }

@@ -94,4 +94,34 @@ public class EventReservationWS {
         }
         return message.toString();
     }
+
+    /**
+     * Web service operation
+     *
+     * @param userID the value of userID
+     * @param eventID the value of eventID
+     * @param claimDate the value of claimDate
+     * @return String message
+     */
+    @WebMethod(operationName = "ClaimReservation")
+    public String ClaimReservation(
+            @WebParam(name = "userID") int userID,
+            @WebParam(name = "eventID") int eventID,
+            @WebParam(name = "claimDate") String claimDate
+    ) {
+        //TODO write your implementation code here:
+        String message;
+        User user = new User(userID);
+        Event event = new Event(eventID);
+        Timestamp claim_date = Timestamp.valueOf(claimDate);
+        EventReservation eventReservation = new EventReservation(user, event, null, claim_date);
+
+        int rowEffected = eventReservation.UpdateData();
+        if (rowEffected == 0 || rowEffected > 1) {
+            message = "Failed to claim event reservation.";
+        } else {
+            message = "Event reservation claimed successfully.";
+        }
+        return message;
+    }
 }
