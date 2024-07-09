@@ -4,11 +4,23 @@
  */
 package ezeventparkingclient;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Nico
  */
 public class formEvent extends javax.swing.JFrame {
+
+    Socket clientSocket;
+    BufferedReader msgFromServer;
+    DataOutputStream msgToServer;
+    public String userID;
+    public String eventID;
 
     /**
      * Creates new form formOrderEvent
@@ -181,7 +193,7 @@ public class formEvent extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(labelNama1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 551, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 567, Short.MAX_VALUE)
                 .addComponent(labelTiket)
                 .addGap(33, 33, 33)
                 .addComponent(labelEvent)
@@ -264,7 +276,7 @@ public class formEvent extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(labelNama5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 551, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
                 .addComponent(labelTiket2)
                 .addGap(33, 33, 33)
                 .addComponent(labelEvent2)
@@ -285,7 +297,7 @@ public class formEvent extends javax.swing.JFrame {
         );
 
         jPanel9.add(jPanel10);
-        jPanel10.setBounds(0, 0, 900, 70);
+        jPanel10.setBounds(0, 0, 690, 70);
 
         btnReserve.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnReserve.setText("Reservasi Ticket");
@@ -295,31 +307,31 @@ public class formEvent extends javax.swing.JFrame {
             }
         });
         jPanel9.add(btnReserve);
-        btnReserve.setBounds(498, 352, 139, 42);
+        btnReserve.setBounds(470, 320, 139, 30);
 
         labelbiasa2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelbiasa2.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa2.setText("Tanggal:");
         jPanel9.add(labelbiasa2);
-        labelbiasa2.setBounds(498, 155, 110, 20);
+        labelbiasa2.setBounds(470, 150, 110, 20);
 
         labelbiasa3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelbiasa3.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa3.setText("Lokasi:");
         jPanel9.add(labelbiasa3);
-        labelbiasa3.setBounds(498, 129, 110, 20);
+        labelbiasa3.setBounds(470, 130, 110, 20);
 
         labelLokasi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelLokasi.setForeground(new java.awt.Color(0, 0, 0));
         labelLokasi.setText("LOKASI");
         jPanel9.add(labelLokasi);
-        labelLokasi.setBounds(608, 129, 110, 20);
+        labelLokasi.setBounds(580, 130, 110, 20);
 
         labelDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelDate.setForeground(new java.awt.Color(0, 0, 0));
         labelDate.setText("DATE");
         jPanel9.add(labelDate);
-        labelDate.setBounds(608, 155, 110, 20);
+        labelDate.setBounds(580, 150, 110, 20);
 
         labelNamaEvent.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         labelNamaEvent.setForeground(new java.awt.Color(0, 0, 0));
@@ -333,16 +345,29 @@ public class formEvent extends javax.swing.JFrame {
         jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel5.setAutoscrolls(true);
         jPanel9.add(jLabel5);
-        jLabel5.setBounds(30, 140, 446, 253);
+        jLabel5.setBounds(30, 140, 410, 230);
 
         getContentPane().add(jPanel9);
-        jPanel9.setBounds(0, 0, 900, 540);
+        jPanel9.setBounds(0, 0, 690, 410);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
         // TODO add your handling code here:
+        try {
+            clientSocket = new Socket("localhost", 6000);
+            String event = labelNamaEvent.getText();
+            String msg = "eventreservation/buyeventreservation/" + userID + "/" + event + "/" + labelDate.getText() + " 00:00:00.0" + "\n";
+            sendMessage(msg);
+
+            String respond = getMessage();
+            JOptionPane.showMessageDialog(this, respond);
+            this.dispose();
+
+        } catch (Exception ex) {
+            System.out.println("Error di formEvent");
+        }
     }//GEN-LAST:event_btnReserveActionPerformed
 
     /**
@@ -385,6 +410,24 @@ public class formEvent extends javax.swing.JFrame {
                 new formEvent().setVisible(true);
             }
         });
+    }
+
+    public void sendMessage(String s) {
+        try {
+            msgToServer = new DataOutputStream(clientSocket.getOutputStream());
+            msgToServer.writeBytes(s + "\n");
+        } catch (Exception e) {
+        }
+    }
+
+    public String getMessage() {
+        String chatServer = "";
+        try {
+            msgFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            chatServer = msgFromServer.readLine();
+        } catch (Exception ex) {
+        }
+        return chatServer;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
