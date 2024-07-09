@@ -6,15 +6,13 @@ package ezeventparkingclient;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,6 +27,7 @@ public class formMenuParking extends javax.swing.JFrame {
     BufferedReader msgFromServer;
     DataOutputStream msgToServer;
     public String userID;
+    ArrayList<String> listIndexLocation = new ArrayList<>();
 
     public formMenuParking() {
         initComponents();
@@ -193,11 +192,11 @@ public class formMenuParking extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         try {
-
-            clientSocket = new Socket("localhost", 6000);
-            int indexLocation = jComboBoxLocation.getSelectedIndex() + 1;
-            String location = String.valueOf(indexLocation);
-            String locationString = jComboBoxLocation.getName();
+            int indexLocation = jComboBoxLocation.getSelectedIndex();
+            int id2 = indexLocation - 1;
+            int id = Integer.parseInt(listIndexLocation.get(id2));
+            String location = String.valueOf(id);
+            String locationString = jComboBoxLocation.getItemAt(indexLocation);
             Date dateOriginal = jDateChooser1.getDate();
             Timestamp dateTimeStamp = new Timestamp(dateOriginal.getTime());
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -207,20 +206,22 @@ public class formMenuParking extends javax.swing.JFrame {
             System.out.println(dateString);
             System.out.println(msg);
             sendMessage(msg);
+
             String response = getMessage();
 
             String[] responses = response.split("/");
 
             if (responses[0].equals("SUCCESS")) {
                 String capacity = responses[1];
+                System.out.println(capacity);
                 formOrderTicket frm = new formOrderTicket();
                 frm.labelTotal.setText(capacity);
-                frm.labelLokasi.setText(location);
+                frm.labelLokasi.setText(locationString);
                 frm.labelDate.setText(dateFormat.format(dateTimeStamp));
                 frm.userID = userID;
-                frm.parkingLotID = locationString;
+                frm.parkingLotID = String.valueOf(id);
                 int countOccupied = 0;
-                for (int i = 2; i <= responses.length; i++) {
+                for (int i = 2; i < responses.length; i++) {
                     frm.listBoughtTickets.add(responses[i]);
                     countOccupied++;
                 }
@@ -229,7 +230,23 @@ public class formMenuParking extends javax.swing.JFrame {
                 available = Integer.parseInt(capacity) - countOccupied;
                 frm.labelAvailable.setText(String.valueOf(available));
 
+                frm.setVisible(true);
+                this.setVisible(false);
+
             } else {
+                String capacity = responses[1];
+                formOrderTicket frm = new formOrderTicket();
+                frm.labelTotal.setText(capacity);
+                frm.labelLokasi.setText(locationString);
+                frm.labelDate.setText(dateFormat.format(dateTimeStamp));
+                frm.userID = userID;
+                frm.parkingLotID = String.valueOf(id);
+
+                frm.labelOccupied.setText("0");
+                frm.labelAvailable.setText(capacity);
+                
+                frm.setVisible(true);
+                this.setVisible(false);
 
             }
 
@@ -242,21 +259,26 @@ public class formMenuParking extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         try {
-            clientSocket = new Socket("localhost", 6000);
-            String msg = "parkinglot/selectdata" + "\n";
+            clientSocket = new Socket("192.168.180.136", 12345);
+            String msg = "parkinglot/getallparkinglot" + "\n";
             sendMessage(msg);
-            
+
             String response = getMessage();
-            
-            String[] responses = response.split("/");
-            
-            if(responses[0].equals("SUCCESS")){
-                for(int i =1; i<responses.length; i++){
-                    jComboBoxLocation.addItem(responses[i]);
+
+            ArrayList<String> splitResponse = new ArrayList<>(Arrays.asList(response.split("/")));
+
+            if (splitResponse.get(0).equals("SUCCESS")) {
+                splitResponse.remove(0);
+                for (String rowParkingLot : splitResponse) {
+                    String[] dataMember = rowParkingLot.split(",");
+
+                    listIndexLocation.add(dataMember[0]);
+                    System.out.println(dataMember[0]);
+                    jComboBoxLocation.addItem(dataMember[1]);
+                    System.out.println(dataMember[1]);
+
                 }
-                
             }
-            
 
         } catch (Exception e) {
             System.out.println("Error di formMenuParking windowOpened");
@@ -304,6 +326,7 @@ public class formMenuParking extends javax.swing.JFrame {
     public void sendMessage(String s) {
         try {
             msgToServer = new DataOutputStream(clientSocket.getOutputStream());
+            msgToServer.writeBytes(s);
 
         } catch (Exception e) {
         }

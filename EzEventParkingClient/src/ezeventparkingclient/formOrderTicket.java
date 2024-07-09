@@ -19,12 +19,13 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ASUS
  */
-public class formOrderTicket extends javax.swing.JFrame{
+public class formOrderTicket extends javax.swing.JFrame {
 
     /**
      * Creates new form formOrderTicket
@@ -290,18 +291,18 @@ public class formOrderTicket extends javax.swing.JFrame{
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         try {
             // TODO add your handling code here:
-            clientSocket = new Socket("localhost", 6000);
+            //USER ID BELOMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+            clientSocket = new Socket("192.168.180.136", 12345);
             String ticket = labelTicket.getText();
-            String msg = "parkingticket/buyparkingticket/" + ticket + "/" + labelDate.getText() + " 00:00:00.0" + "\n";
+            String msg = "parkingticket/buyparkingticket/" + "1/" + parkingLotID + "/" + ticket + "/" + "10000/" + labelDate.getText() + " 00:00:00.0" + "\n";
             sendMessage(msg);
 
             String response = getMessage();
+            
+            JOptionPane.showMessageDialog(this, response);
+            this.dispose();
+            
 
-            if (response.equals("SUCCESS")) {
-
-            } else {
-
-            }
 
         } catch (Exception ex) {
             System.out.println("Error di formOrderTicket Order");
@@ -310,10 +311,10 @@ public class formOrderTicket extends javax.swing.JFrame{
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        listBoughtTickets.add("A1");
-        listBoughtTickets.add("B1");
-        listBoughtTickets.add("D6");
-        listBoughtTickets.add("G7");
+//        listBoughtTickets.add("A1");
+//        listBoughtTickets.add("B1");
+//        listBoughtTickets.add("D6");
+//        listBoughtTickets.add("G7");
         GenerateCheckBoxes(labelAvailable.getText());
         updateCheckboxes(listBoughtTickets);
         enableCheckboxes(listBoughtTickets);
@@ -461,6 +462,7 @@ public class formOrderTicket extends javax.swing.JFrame{
     public void sendMessage(String s) {
         try {
             msgToServer = new DataOutputStream(clientSocket.getOutputStream());
+            msgToServer.writeBytes(s);
 
         } catch (Exception e) {
         }
