@@ -182,7 +182,9 @@ public class formHistoryParking extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
             model.setRowCount(0);
             clientSocket = new Socket("ipaddress", 12345);
-            String msg = "parkingticket/getalluserticket" + userID;
+            String msg = "parkingticket/getalluserticket" + userID + "\n";
+            
+            sendMessage(msg);
 
             String response = getMessage();
 
