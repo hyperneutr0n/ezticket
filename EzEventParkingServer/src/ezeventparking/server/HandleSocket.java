@@ -50,6 +50,7 @@ public class HandleSocket extends Thread {
         try {
             String message = in.readLine();
 
+            System.out.println(message);
             HandleMessage(message);
         } catch (IOException ex) {
             Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,6 +147,7 @@ public class HandleSocket extends Thread {
                         int plID = Integer.parseInt(splitMessage.get(1));
                         message = parentServer.parkingTicketPort.getOccupiedSlot(reservDate, plID);
                         SendMessage(message);
+                        System.out.println(message + "\n");
                         break;
                     default:
                         SendMessage("Method " + methodName + " in class " + className + " doesn't exist!");

@@ -92,6 +92,9 @@ public class ParkingTicketWS {
 
         if (result.isEmpty()) {
             message.add("FAILED");
+            ParkingLot parkingLot = new ParkingLot();
+            ParkingLot obj = parkingLot.FindParkingLot(parkingLotID);
+            message.add(String.valueOf(obj.getCapacity()));
         } else {
             message.add("SUCCESS");
             message.add(String.valueOf(result.get(0)));
