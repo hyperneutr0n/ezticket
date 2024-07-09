@@ -293,7 +293,13 @@ public class formOrderTicket extends javax.swing.JFrame {
             String response = getMessage();
             
             JOptionPane.showMessageDialog(this, response);
-            this.dispose();
+            
+            formMenuMain frm = new formMenuMain();
+            frm.userID = this.userID;
+            frm.username = this.labelAccount.getText();
+            frm.labelAccount.setText(this.labelAccount.getText());
+            frm.setVisible(true);
+            this.setVisible(false);
             
 
 
