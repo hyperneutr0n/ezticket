@@ -28,6 +28,7 @@ public class formClaimTicket extends javax.swing.JFrame {
     public String username;
     int eventID;
     String claimDate;
+    int selectedRow;
     ArrayList<String> listIndexTickets = new ArrayList<>();
 
     /**
@@ -50,10 +51,16 @@ public class formClaimTicket extends javax.swing.JFrame {
 
             for (String items : splitResponse) {
                 String[] dataMember = items.split(",");
-                Object[] rowData = new Object[2];
+                Object[] rowData = new Object[3];
 
                 rowData[0] = dataMember[2];
                 rowData[1] = dataMember[3];
+
+                if (dataMember[4].equals("null")) {
+                    rowData[2] = "NOT CLAIMED";
+                } else {
+                    rowData[2] = "CLAIMED";
+                }
 
                 listIndexTickets.add(dataMember[1]);
 
@@ -144,17 +151,17 @@ public class formClaimTicket extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Nama Event", "Date"
+                "Nama Event", "Date", "Claimed"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -220,18 +227,21 @@ public class formClaimTicket extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
 
-            //buat claim date
-            LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.s");
-            claimDate = now.format(formatter);
-            System.out.println(claimDate);
-            String msg = "eventreservation/claimreservation/" + userID + "/" + eventID + "/" + claimDate + "\n";
-            System.out.println(msg);
-            sendMessage(msg);
+            if (selectedRow != -1) {
+                //buat claim date
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.s");
+                claimDate = now.format(formatter);
+                System.out.println(claimDate);
+                String msg = "eventreservation/claimreservation/" + userID + "/" + eventID + "/" + claimDate + "\n";
+                System.out.println(msg);
+                sendMessage(msg);
 
-            String response = getMessage();
+                String response = getMessage();
 
-            JOptionPane.showMessageDialog(this, response);
+                JOptionPane.showMessageDialog(this, response);
+                refreshTable();
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
@@ -248,7 +258,7 @@ public class formClaimTicket extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        int selectedRow = jTable1.getSelectedRow();
+        selectedRow = jTable1.getSelectedRow();
         System.out.println(selectedRow);
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Please select a reservation to claim.");
