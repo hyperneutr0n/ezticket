@@ -40,10 +40,17 @@ public class Server {
     ezeventparking.services.EventReservationWS eventReservationPort = eventReservationService.getEventReservationWSPort();
 
     public Server() {
+        listClients = new ArrayList<>();
         try {
-            listClients = new ArrayList<>();
             serverSocket = new ServerSocket(12345);
-            System.out.println("Server started.");
+            System.out.println("Server started listening on port 12345.");
+        } catch (IOException ex) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void start() {
+        try {
             while (true) {
                 socket = serverSocket.accept();
                 HandleSocket hs = new HandleSocket(this, socket);
@@ -53,5 +60,15 @@ public class Server {
         } catch (IOException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void RemoveClient(HandleSocket hs) {
+        listClients.remove(hs);
+    }
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Server server = new Server();
+        server.start();
     }
 }

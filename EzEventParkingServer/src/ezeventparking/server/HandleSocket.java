@@ -24,7 +24,7 @@ public class HandleSocket extends Thread {
     Socket socket;
     BufferedReader in;
     DataOutputStream out;
-    String userLogged;
+    boolean running;
 
     public HandleSocket(Server parent, Socket socket) {
         System.out.println("New handle socket created");
@@ -33,6 +33,7 @@ public class HandleSocket extends Thread {
             this.socket = socket;
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new DataOutputStream(this.socket.getOutputStream());
+            this.running = true;
         } catch (IOException ex) {
             Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,9 +51,27 @@ public class HandleSocket extends Thread {
     public void RetrieveMessage() {
         try {
             String message = in.readLine();
+            if (message != null) {
+                System.out.println(message);
+                HandleMessage(message);
+            } else {
+                CloseConnection();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
+            if (ex.getMessage().equals("Connection reset")) {
+                System.out.println("Client abruptly closed the connection.");
+                CloseConnection();
+            }
+        }
+    }
 
-            System.out.println(message);
-            HandleMessage(message);
+    public void CloseConnection() {
+        try {
+            running = false;
+            socket.close();
+            parentServer.RemoveClient(this);
+            System.out.println("Client disconnected");
         } catch (IOException ex) {
             Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,7 +102,6 @@ public class HandleSocket extends Thread {
                     case "checklogin":
                         message = parentServer.userPort.checkLogin(splitMessage.get(0), splitMessage.get(1));
                         if (!message.equals("null")) {
-                            this.userLogged = message.split(",")[3];
                             SendMessage("SUCCESS/" + message);
                         } else {
                             SendMessage("FAILED");
@@ -209,17 +227,8 @@ public class HandleSocket extends Thread {
 
     @Override
     public void run() {
-        while (true) {
-            if (!socket.isClosed()) {
-                RetrieveMessage();
-            } else {
-                try {
-                    socket.close();
-                    parentServer.listClients.remove(this);
-                } catch (IOException ex) {
-                    Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+        while (running && !socket.isClosed()) {
+            RetrieveMessage();
         }
     }
 }
