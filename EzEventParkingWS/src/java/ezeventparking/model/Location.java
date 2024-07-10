@@ -29,6 +29,10 @@ public class Location extends Model {
         this.id = id;
     }
 
+    public Location(String name) {
+        this.name = name;
+    }
+
     public Location(String name, String address) {
         this.name = name;
         this.address = address;

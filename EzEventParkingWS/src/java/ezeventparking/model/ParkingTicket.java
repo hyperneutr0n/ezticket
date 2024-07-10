@@ -138,7 +138,10 @@ public class ParkingTicket extends Model {
     // <editor-fold defaultstate="collapsed" desc="Methods">
     public ArrayList<ParkingTicket> SelectData() {
         ArrayList<ParkingTicket> listParkingTickets = new ArrayList<>();
-        String sql = "SELECT * FROM parking_tickets";
+        String sql = "SELECT pt.*, pl.name AS parking_lot_name, l.name AS location_name "
+                + "FROM parking_tickets pt "
+                + "INNER JOIN parking_lots pl ON pt.parking_lots_id = pl.id "
+                + "INNER JOIN locations l ON pl.locations_id = l.id";
         try {
             stmt = Model.conn.createStatement();
             result = stmt.executeQuery(sql);
@@ -146,7 +149,9 @@ public class ParkingTicket extends Model {
             while (result.next()) {
                 User rowUser = new User(result.getInt("users_id"));
 
-                ParkingLot rowParkingLot = new ParkingLot(result.getInt("parking_lots_id"));
+                ParkingLot rowParkingLot = new ParkingLot(result.getString("parking_lot_name"));
+
+                rowParkingLot.setLocation(new Location(result.getString("location_name")));
 
                 ParkingTicket parkingTicket = new ParkingTicket(
                         result.getInt("id"),
@@ -281,7 +286,11 @@ public class ParkingTicket extends Model {
 
     public ArrayList<ParkingTicket> SelectUsersTicket(int userID) {
         ArrayList<ParkingTicket> listParkingTickets = new ArrayList<>();
-        String sql = "SELECT * FROM parking_tickets WHERE users_id=?";
+        String sql = "SELECT pt.*, pl.name AS parking_lot_name, l.name AS location_name "
+                + "FROM parking_tickets pt "
+                + "INNER JOIN parking_lots pl ON pt.parking_lots_id = pl.id "
+                + "INNER JOIN locations l ON pl.locations_id = l.id "
+                + "WHERE pt.users_id = ?";
         try {
             PreparedStatement pstmt = Model.conn.prepareStatement(sql);
             pstmt.setInt(1, userID);
@@ -290,7 +299,9 @@ public class ParkingTicket extends Model {
             while (result.next()) {
                 User rowUser = new User(result.getInt("users_id"));
 
-                ParkingLot rowParkingLot = new ParkingLot(result.getInt("parking_lots_id"));
+                ParkingLot rowParkingLot = new ParkingLot(result.getString("parking_lot_name"));
+
+                rowParkingLot.setLocation(new Location(result.getString("location_name")));
 
                 ParkingTicket parkingTicket = new ParkingTicket(
                         result.getInt("id"),
@@ -326,7 +337,14 @@ public class ParkingTicket extends Model {
         } else {
             exit_date = null;
         }
-        return this.getId() + "," + this.getUser().getId() + "," + this.getParkingLot().getId() + "," + this.getSlotNumber() + "," + this.getReservationDate().toString() + "," + entry_date + "," + exit_date;
+        return this.getId() + ","
+                + this.getUser().getId() + ","
+                + this.getParkingLot().getName() + ","
+                + this.getParkingLot().getLocation().getName() + ","
+                + this.getSlotNumber() + ","
+                + this.getReservationDate().toString() + ","
+                + entry_date + ","
+                + exit_date;
     }
     // </editor-fold>
 }

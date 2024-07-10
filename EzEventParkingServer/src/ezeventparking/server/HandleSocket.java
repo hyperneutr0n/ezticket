@@ -9,7 +9,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -28,7 +27,7 @@ public class HandleSocket extends Thread {
     String userLogged;
 
     public HandleSocket(Server parent, Socket socket) {
-        System.out.println("Handle socket created");
+        System.out.println("New handle socket created");
         try {
             this.parentServer = parent;
             this.socket = socket;
@@ -41,6 +40,7 @@ public class HandleSocket extends Thread {
 
     public void SendMessage(String message) {
         try {
+            System.out.println(message);
             out.writeBytes(message + "\n");
         } catch (IOException ex) {
             Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
@@ -210,7 +210,16 @@ public class HandleSocket extends Thread {
     @Override
     public void run() {
         while (true) {
-            RetrieveMessage();
+            if (!socket.isClosed()) {
+                RetrieveMessage();
+            } else {
+                try {
+                    socket.close();
+                    parentServer.listClients.remove(this);
+                } catch (IOException ex) {
+                    Logger.getLogger(HandleSocket.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 }

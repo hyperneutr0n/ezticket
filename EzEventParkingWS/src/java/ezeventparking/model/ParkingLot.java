@@ -31,6 +31,10 @@ public class ParkingLot extends Model {
         this.id = id;
     }
 
+    public ParkingLot(String name) {
+        this.name = name;
+    }
+
     public ParkingLot(String name, Location location, int capacity, double price) {
         this.name = name;
         this.location = location;
