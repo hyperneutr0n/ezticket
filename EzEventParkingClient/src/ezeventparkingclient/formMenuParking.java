@@ -288,7 +288,9 @@ public class formMenuParking extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         try {
-            clientSocket = new Socket("192.168.180.136", 12345);
+            clientSocket =  SocketManager.getInstance().getClientSocket(); 
+                    //new Socket("192.168.180.136", 12345);
+                    
             String msg = "parkinglot/getallparkinglot" + "\n";
             sendMessage(msg);
 

@@ -152,7 +152,8 @@ public class formLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
-            clientSocket = new Socket("localhost", 12345);
+            clientSocket = SocketManager.getInstance().getClientSocket();
+            //   new Socket("localhost", 12345);
 
             // TODO add your handling code here:
             String username = txtUsername.getText();
@@ -169,12 +170,12 @@ public class formLogin extends javax.swing.JFrame {
 
                 String ID = response[0];
                 String usernameSEND = response[3];
-                
+
                 formMenuMain frm = new formMenuMain();
                 frm.userID = ID;
                 frm.username = usernameSEND;
                 frm.labelAccount.setText(usernameSEND);
-                
+
                 frm.setVisible(true);
 
 //                formMenu frm = new formMenu();

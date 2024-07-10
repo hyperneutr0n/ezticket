@@ -28,6 +28,7 @@ public class HandleSocket extends Thread {
     String userLogged;
 
     public HandleSocket(Server parent, Socket socket) {
+        System.out.println("Handle socket created");
         try {
             this.parentServer = parent;
             this.socket = socket;

@@ -285,7 +285,8 @@ public class formOrderTicket extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             //USER ID BELOMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-            clientSocket = new Socket("192.168.180.136", 12345);
+            clientSocket = SocketManager.getInstance().getClientSocket(); 
+                   // new Socket("192.168.180.136", 12345);
             String ticket = labelTicket.getText();
             String msg = "parkingticket/buyparkingticket/" + "1/" + parkingLotID + "/" + ticket + "/" + "10000/" + labelDate.getText() + " 00:00:00.0" + "\n";
             sendMessage(msg);

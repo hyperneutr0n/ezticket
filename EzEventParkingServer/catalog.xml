@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?wsdl" uri="xml-resources/web-service-references/UserWS/wsdl/localhost_8080/EzEventParkingWS/UserWS.wsdl"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?xsd=1" uri="xml-resources/web-service-references/UserWS/wsdl/localhost_8080/EzEventParkingWS/UserWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/LocationWS?wsdl" uri="xml-resources/web-service-references/LocationWS/wsdl/localhost_8080/EzEventParkingWS/LocationWS.wsdl"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/LocationWS?xsd=1" uri="xml-resources/web-service-references/LocationWS/wsdl/localhost_8080/EzEventParkingWS/LocationWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/EventWS?wsdl" uri="xml-resources/web-service-references/EventWS/wsdl/localhost_8080/EzEventParkingWS/EventWS.wsdl"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/EventWS?xsd=1" uri="xml-resources/web-service-references/EventWS/wsdl/localhost_8080/EzEventParkingWS/EventWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingLotWS?wsdl" uri="xml-resources/web-service-references/ParkingLotWS/wsdl/localhost_8080/EzEventParkingWS/ParkingLotWS.wsdl"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingLotWS?xsd=1" uri="xml-resources/web-service-references/ParkingLotWS/wsdl/localhost_8080/EzEventParkingWS/ParkingLotWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingTicketWS?wsdl" uri="xml-resources/web-service-references/ParkingTicketWS/wsdl/localhost_8080/EzEventParkingWS/ParkingTicketWS.wsdl"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingTicketWS?xsd=1" uri="xml-resources/web-service-references/ParkingTicketWS/wsdl/localhost_8080/EzEventParkingWS/ParkingTicketWS.xsd_1.xsd"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/EventReservationWS?wsdl" uri="xml-resources/web-service-references/EventReservationWS/wsdl/localhost_8080/EzEventParkingWS/EventReservationWS.wsdl"/>
-    <system systemId="http://localhost:8080/EzEventParkingWS/EventReservationWS?xsd=1" uri="xml-resources/web-service-references/EventReservationWS/wsdl/localhost_8080/EzEventParkingWS/EventReservationWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?wsdl" uri="xml-resources/web-service-references/UserWS_1/wsdl/localhost_8080/EzEventParkingWS/UserWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?xsd=1" uri="xml-resources/web-service-references/UserWS_1/wsdl/localhost_8080/EzEventParkingWS/UserWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/LocationWS?wsdl" uri="xml-resources/web-service-references/LocationWS_1/wsdl/localhost_8080/EzEventParkingWS/LocationWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/LocationWS?xsd=1" uri="xml-resources/web-service-references/LocationWS_1/wsdl/localhost_8080/EzEventParkingWS/LocationWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/EventWS?wsdl" uri="xml-resources/web-service-references/EventWS_1/wsdl/localhost_8080/EzEventParkingWS/EventWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/EventWS?xsd=1" uri="xml-resources/web-service-references/EventWS_1/wsdl/localhost_8080/EzEventParkingWS/EventWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingLotWS?wsdl" uri="xml-resources/web-service-references/ParkingLotWS_1/wsdl/localhost_8080/EzEventParkingWS/ParkingLotWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingLotWS?xsd=1" uri="xml-resources/web-service-references/ParkingLotWS_1/wsdl/localhost_8080/EzEventParkingWS/ParkingLotWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingTicketWS?wsdl" uri="xml-resources/web-service-references/ParkingTicketWS_1/wsdl/localhost_8080/EzEventParkingWS/ParkingTicketWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/ParkingTicketWS?xsd=1" uri="xml-resources/web-service-references/ParkingTicketWS_1/wsdl/localhost_8080/EzEventParkingWS/ParkingTicketWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/EventReservationWS?wsdl" uri="xml-resources/web-service-references/EventReservationWS_1/wsdl/localhost_8080/EzEventParkingWS/EventReservationWS.wsdl"/>
+    <system systemId="http://localhost:8080/EzEventParkingWS/EventReservationWS?xsd=1" uri="xml-resources/web-service-references/EventReservationWS_1/wsdl/localhost_8080/EzEventParkingWS/EventReservationWS.xsd_1.xsd"/>
 </catalog>
