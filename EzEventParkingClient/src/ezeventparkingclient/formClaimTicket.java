@@ -24,7 +24,7 @@ public class formClaimTicket extends javax.swing.JFrame {
     Socket clientSocket;
     BufferedReader msgFromServer;
     DataOutputStream msgToServer;
-    public String userID = "1";
+    public String userID;
     public String username;
     int eventID;
     String claimDate;
@@ -52,10 +52,10 @@ public class formClaimTicket extends javax.swing.JFrame {
                 String[] dataMember = items.split(",");
                 Object[] rowData = new Object[2];
 
-                rowData[0] = dataMember[1];
-                rowData[1] = dataMember[2];
+                rowData[0] = dataMember[2];
+                rowData[1] = dataMember[3];
 
-                listIndexTickets.add("BLABLABLA");
+                listIndexTickets.add(dataMember[1]);
 
                 model.addRow(rowData);
 
@@ -222,7 +222,7 @@ public class formClaimTicket extends javax.swing.JFrame {
 
             //buat claim date
             LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.f");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.s");
             claimDate = now.format(formatter);
             System.out.println(claimDate);
             String msg = "eventreservation/claimreservation/" + userID + "/" + eventID + "/" + claimDate + "\n";
@@ -230,11 +230,8 @@ public class formClaimTicket extends javax.swing.JFrame {
             sendMessage(msg);
 
             String response = getMessage();
-            if (response.equals("SUCCESS")) {
-                JOptionPane.showMessageDialog(this, "Reservation claimed");
-            } else {
-                JOptionPane.showMessageDialog(this, "Reservation claimed fail");
-            }
+
+            JOptionPane.showMessageDialog(this, response);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
@@ -257,7 +254,8 @@ public class formClaimTicket extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please select a reservation to claim.");
             return;
         }
-        eventID = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
+        eventID = Integer.parseInt(listIndexTickets.get(selectedRow));
+        //Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
         //System.out.println(eventID);
 
 
