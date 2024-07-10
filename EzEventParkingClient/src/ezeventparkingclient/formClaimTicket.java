@@ -24,15 +24,17 @@ public class formClaimTicket extends javax.swing.JFrame {
     Socket clientSocket;
     BufferedReader msgFromServer;
     DataOutputStream msgToServer;
-    public String userID;
+    public String userID = "1";
     public String username;
+    int eventID;
+    String claimDate;
+    ArrayList<String> listIndexTickets = new ArrayList<>();
 
     /**
      * Creates new form formClaimTicket
      */
     public formClaimTicket() {
         initComponents();
-        refreshTable();
     }
 
     public void refreshTable() {
@@ -50,8 +52,10 @@ public class formClaimTicket extends javax.swing.JFrame {
                 String[] dataMember = items.split(",");
                 Object[] rowData = new Object[2];
 
-                rowData[0] = dataMember[2];
-                rowData[1] = dataMember[3];
+                rowData[0] = dataMember[1];
+                rowData[1] = dataMember[2];
+
+                listIndexTickets.add("BLABLABLA");
 
                 model.addRow(rowData);
 
@@ -157,6 +161,11 @@ public class formClaimTicket extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
@@ -209,20 +218,15 @@ public class formClaimTicket extends javax.swing.JFrame {
 
     private void btnReservasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservasiActionPerformed
         // TODO add your handling code here:
-        int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a reservation to claim.");
-            return;
-        }
-        int eventID = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
-
-        //buat claim date
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.f");
-        String claimDate = now.format(formatter);
-
         try {
+
+            //buat claim date
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.f");
+            claimDate = now.format(formatter);
+            System.out.println(claimDate);
             String msg = "eventreservation/claimreservation/" + userID + "/" + eventID + "/" + claimDate + "\n";
+            System.out.println(msg);
             sendMessage(msg);
 
             String response = getMessage();
@@ -234,13 +238,30 @@ public class formClaimTicket extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
+
+
     }//GEN-LAST:event_btnReservasiActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         clientSocket = SocketManager.getInstance().getClientSocket();
+        refreshTable();
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        System.out.println(selectedRow);
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a reservation to claim.");
+            return;
+        }
+        eventID = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
+        //System.out.println(eventID);
+
+
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments

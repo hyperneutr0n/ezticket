@@ -320,8 +320,7 @@ public class formMenuParking extends javax.swing.JFrame {
                     System.out.println(dataMember[0]);
                     jComboBoxLocation.addItem(dataMember[1]);
                     System.out.println(dataMember[1]);
-
-                }
+                    }
             }
 
         } catch (Exception e) {
