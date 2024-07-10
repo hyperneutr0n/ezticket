@@ -4,17 +4,59 @@
  */
 package ezeventparkingclient;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nico
  */
 public class formClaimTicket extends javax.swing.JFrame {
 
+    Socket clientSocket;
+    BufferedReader msgFromServer;
+    DataOutputStream msgToServer;
+    public String userID;
+    public String username;
+
     /**
      * Creates new form formClaimTicket
      */
     public formClaimTicket() {
         initComponents();
+        refreshTable();
+    }
+
+    public void refreshTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        String msg = "eventreservation/getalluserreservation/" + userID + "\n";
+        sendMessage(msg);
+
+        String response = getMessage();
+        ArrayList<String> splitResponse = new ArrayList<>(Arrays.asList(response.split("/")));
+        if (splitResponse.get(0).equals("SUCCESS")) {
+            splitResponse.remove(0);
+
+            for (String items : splitResponse) {
+                String[] dataMember = items.split(",");
+                Object[] rowData = new Object[2];
+
+                rowData[0] = dataMember[2];
+                rowData[1] = dataMember[3];
+
+                model.addRow(rowData);
+
+            }
+        }
     }
 
     /**
@@ -37,6 +79,11 @@ public class formClaimTicket extends javax.swing.JFrame {
         btnReservasi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(229, 237, 252));
         jPanel1.setLayout(null);
@@ -93,21 +140,34 @@ public class formClaimTicket extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nama Event", "Date"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 90, 840, 402);
 
         btnReservasi.setText("Reservasi");
+        btnReservasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReservasiActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnReservasi);
         btnReservasi.setBounds(390, 510, 130, 40);
 
@@ -115,7 +175,7 @@ public class formClaimTicket extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,6 +184,63 @@ public class formClaimTicket extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void sendMessage(String s) {
+        try {
+            msgToServer = new DataOutputStream(clientSocket.getOutputStream());
+            msgToServer.writeBytes(s);
+
+        } catch (Exception e) {
+        }
+    }
+
+    public String getMessage() {
+        String chatServer = "";
+        try {
+            msgFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            chatServer = msgFromServer.readLine();
+        } catch (Exception ex) {
+        }
+
+        return chatServer;
+
+    }
+
+
+    private void btnReservasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservasiActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a reservation to claim.");
+            return;
+        }
+        int eventID = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
+
+        //buat claim date
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.f");
+        String claimDate = now.format(formatter);
+
+        try {
+            String msg = "eventreservation/claimreservation/" + userID + "/" + eventID + "/" + claimDate + "\n";
+            sendMessage(msg);
+
+            String response = getMessage();
+            if (response.equals("SUCCESS")) {
+                JOptionPane.showMessageDialog(this, "Reservation claimed");
+            } else {
+                JOptionPane.showMessageDialog(this, "Reservation claimed fail");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnReservasiActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        clientSocket = SocketManager.getInstance().getClientSocket();
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

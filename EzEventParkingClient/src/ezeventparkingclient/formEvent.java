@@ -19,6 +19,8 @@ public class formEvent extends javax.swing.JFrame {
     Socket clientSocket;
     BufferedReader msgFromServer;
     DataOutputStream msgToServer;
+    public int userID;
+    public int eventID;
 
     /**
      * Creates new form formOrderEvent
@@ -355,8 +357,7 @@ public class formEvent extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             clientSocket = new Socket("localhost", 6000);
-            int eventID = 1; //get eventID 
-            int userID = 1; //get userID
+            
             String msg = "eventreservation/buyeventreservation/" + userID + "/" + eventID + "/" + labelDate.getText() + " 00:00:00.0" + "\n";
             sendMessage(msg);
 
