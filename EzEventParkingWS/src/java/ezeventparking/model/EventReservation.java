@@ -77,7 +77,7 @@ public class EventReservation extends Model {
     // <editor-fold defaultstate="collapsed" desc="Methods">
     public ArrayList<EventReservation> SelectData() {
         ArrayList<EventReservation> listEventReservations = new ArrayList<>();
-        String sql = "SELECT * FROM event_reservations";
+        String sql = "SELECT er.*, e.name as 'event_name' FROM event_reservations er INNER JOIN events e ON e.id = er.events_id";
         try {
             stmt = Model.conn.createStatement();
             result = stmt.executeQuery(sql);
@@ -85,7 +85,7 @@ public class EventReservation extends Model {
             while (result.next()) {
                 User rowUser = new User(result.getInt("users_id"));
 
-                Event rowEvent = new Event(result.getInt("events_id"));
+                Event rowEvent = new Event(result.getInt("events_id"), result.getString("event_name"));
 
                 EventReservation eventReservation = new EventReservation(
                         rowUser,
@@ -184,7 +184,7 @@ public class EventReservation extends Model {
 
     public ArrayList<EventReservation> SelectUserReservation(int userID) {
         ArrayList<EventReservation> listEventReservations = new ArrayList<>();
-        String sql = "SELECT * FROM event_reservations WHERE users_id=?";
+        String sql = "SELECT er.*, e.name as 'event_name' FROM event_reservations er INNER JOIN events e ON e.id = er.events_id  WHERE users_id=?";
         try {
             PreparedStatement pstmt = Model.conn.prepareStatement(sql);
             pstmt.setInt(1, userID);
@@ -193,7 +193,7 @@ public class EventReservation extends Model {
             while (result.next()) {
                 User rowUser = new User(result.getInt("users_id"));
 
-                Event rowEvent = new Event(result.getInt("events_id"));
+                Event rowEvent = new Event(result.getInt("events_id"), result.getString("event_name"));
 
                 EventReservation eventReservation = new EventReservation(
                         rowUser,
@@ -218,7 +218,7 @@ public class EventReservation extends Model {
         } else {
             claim_date = null;
         }
-        return this.getUser().getId() + "," + this.getEvent().getId() + "," + this.getReservationDate().toString() + "," + claim_date;
+        return this.getUser().getId() + "," + this.getEvent().getName() + "," + this.getReservationDate().toString() + "," + claim_date;
     }
     // </editor-fold>
 }

@@ -32,6 +32,11 @@ public class Event extends Model {
         this.id = id;
     }
 
+    public Event(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Event(String name, String description, Location location, double price, Timestamp date) {
         this.name = name;
         this.description = description;
@@ -103,13 +108,13 @@ public class Event extends Model {
     // <editor-fold defaultstate="collapsed" desc="Methods">
     public ArrayList<Event> SelectData() {
         ArrayList<Event> listEvents = new ArrayList<>();
-        String sql = "SELECT * FROM events";
+        String sql = "SELECT e.*, l.name AS 'location_name' FROM events e INNER JOIN locations l ON l.id = e.locations_id";
         try {
             stmt = Model.conn.createStatement();
             result = stmt.executeQuery(sql);
 
             while (result.next()) {
-                Location rowLocation = new Location(result.getInt("locations_id"));
+                Location rowLocation = new Location(result.getString("location_name"));
 
                 Event event = new Event(
                         result.getInt("id"),
@@ -194,7 +199,7 @@ public class Event extends Model {
                 pstmt.setInt(1, id);
                 result = pstmt.executeQuery();
                 if (result.next()) {
-                    Location searchedLocation = new Location(result.getInt("locations_id"));
+                    Location searchedLocation = new Location(result.getString("location_name"));
 
                     searchResult = new Event(
                             result.getInt("id"),
@@ -217,7 +222,7 @@ public class Event extends Model {
         return this.getId() + ","
                 + this.getName() + ","
                 + this.getDescription() + ","
-                + this.getLocation().getId() + ","
+                + this.getLocation().getName() + ","
                 + this.getPrice() + ","
                 + this.getDate().toString();
     }
