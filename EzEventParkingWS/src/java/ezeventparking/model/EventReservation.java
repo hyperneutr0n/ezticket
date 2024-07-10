@@ -85,7 +85,7 @@ public class EventReservation extends Model {
             while (result.next()) {
                 User rowUser = new User(result.getInt("users_id"));
 
-                Event rowEvent = new Event(result.getInt("parking_lots_id"));
+                Event rowEvent = new Event(result.getInt("events_id"));
 
                 EventReservation eventReservation = new EventReservation(
                         rowUser,
@@ -193,7 +193,7 @@ public class EventReservation extends Model {
             while (result.next()) {
                 User rowUser = new User(result.getInt("users_id"));
 
-                Event rowEvent = new Event(result.getInt("parking_lots_id"));
+                Event rowEvent = new Event(result.getInt("events_id"));
 
                 EventReservation eventReservation = new EventReservation(
                         rowUser,
