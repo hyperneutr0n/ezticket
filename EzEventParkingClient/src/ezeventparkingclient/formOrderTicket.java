@@ -73,6 +73,8 @@ public class formOrderTicket extends javax.swing.JFrame {
         labelDate = new javax.swing.JLabel();
         labelbiasa2 = new javax.swing.JLabel();
         labelbiasa3 = new javax.swing.JLabel();
+        btnExit = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -82,7 +84,6 @@ public class formOrderTicket extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 51));
-        jPanel1.setLayout(null);
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -176,16 +177,9 @@ public class formOrderTicket extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3);
-        jPanel3.setBounds(40, 110, 874, 331);
-
         labelTicket.setText("A1,A2,A4");
-        jPanel1.add(labelTicket);
-        labelTicket.setBounds(710, 600, 110, 21);
 
         labelLokasi.setText("OHIO");
-        jPanel1.add(labelLokasi);
-        labelLokasi.setBounds(710, 540, 110, 21);
 
         btnOrder.setBackground(new java.awt.Color(0, 0, 0));
         btnOrder.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,8 +189,6 @@ public class formOrderTicket extends javax.swing.JFrame {
                 btnOrderActionPerformed(evt);
             }
         });
-        jPanel1.add(btnOrder);
-        btnOrder.setBounds(830, 630, 90, 29);
 
         jPanel5.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -245,37 +237,100 @@ public class formOrderTicket extends javax.swing.JFrame {
                 .addGap(31, 31, 31))
         );
 
-        jPanel1.add(jPanel5);
-        jPanel5.setBounds(-8, 0, 970, 88);
-        jPanel5.getAccessibleContext().setAccessibleParent(jPanel5);
-
         labelbiasa1.setText("Booked Tickets:");
-        jPanel1.add(labelbiasa1);
-        labelbiasa1.setBounds(600, 600, 110, 21);
 
         labelDate.setText("DATE");
-        jPanel1.add(labelDate);
-        labelDate.setBounds(710, 570, 110, 21);
 
         labelbiasa2.setText("Tanggal:");
-        jPanel1.add(labelbiasa2);
-        labelbiasa2.setBounds(600, 570, 110, 21);
 
         labelbiasa3.setText("Lokasi:");
-        jPanel1.add(labelbiasa3);
-        labelbiasa3.setBounds(600, 540, 110, 21);
+
+        btnExit.setBackground(new java.awt.Color(0, 0, 0));
+        btnExit.setForeground(new java.awt.Color(255, 255, 255));
+        btnExit.setText("EXIT");
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExitActionPerformed(evt);
+            }
+        });
+
+        btnBack.setBackground(new java.awt.Color(0, 0, 0));
+        btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("BACK");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(608, 608, 608)
+                .addComponent(labelbiasa3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(labelLokasi, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(608, 608, 608)
+                .addComponent(labelbiasa2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(470, 470, 470)
+                        .addComponent(labelbiasa1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(labelTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnExit)
+                        .addGap(690, 690, 690)
+                        .addComponent(btnOrder))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelbiasa3)
+                    .addComponent(labelLokasi))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelbiasa2)
+                    .addComponent(labelDate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(labelbiasa1)
+                        .addComponent(labelTicket))
+                    .addComponent(btnBack))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOrder)
+                    .addComponent(btnExit))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        jPanel5.getAccessibleContext().setAccessibleParent(jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 955, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -285,24 +340,22 @@ public class formOrderTicket extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             //USER ID BELOMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-            clientSocket = SocketManager.getInstance().getClientSocket(); 
-                   // new Socket("192.168.180.136", 12345);
+            clientSocket = SocketManager.getInstance().getClientSocket();
+            // new Socket("192.168.180.136", 12345);
             String ticket = labelTicket.getText();
-            String msg = "parkingticket/buyparkingticket/" + "1/" + parkingLotID + "/" + ticket + "/" + "10000/" + labelDate.getText() + " 00:00:00.0" + "\n";
+            String msg = "parkingticket/buyparkingticket/" + userID + "/" + parkingLotID + "/" + ticket + "/" + "10000/" + labelDate.getText() + " 00:00:00.0" + "\n";
             sendMessage(msg);
 
             String response = getMessage();
-            
+
             JOptionPane.showMessageDialog(this, response);
-            
+
             formMenuMain frm = new formMenuMain();
             frm.userID = this.userID;
             frm.username = this.labelAccount.getText();
             frm.labelAccount.setText(this.labelAccount.getText());
             frm.setVisible(true);
             this.setVisible(false);
-            
-
 
         } catch (Exception ex) {
             System.out.println("Error di formOrderTicket Order");
@@ -315,10 +368,11 @@ public class formOrderTicket extends javax.swing.JFrame {
 //        listBoughtTickets.add("B1");
 //        listBoughtTickets.add("D6");
 //        listBoughtTickets.add("G7");
-        GenerateCheckBoxes(labelAvailable.getText());
+        GenerateCheckBoxes(labelTotal.getText());
         updateCheckboxes(listBoughtTickets);
         enableCheckboxes(listBoughtTickets);
         labelTicket.setText("");
+        System.out.println(userID);
 //        try {
 //            clientSocket = new Socket("localhost", 6000);
 //            String msg = "PARKING/CAPACITY";
@@ -333,8 +387,23 @@ public class formOrderTicket extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        // TODO add your handling code here:
+        System.exit(WIDTH);
+    }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        formMenuParking frm = new formMenuParking();
+        frm.userID = userID;
+        frm.labelAccount.setText(this.labelAccount.getText());
+        frm.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBackActionPerformed
+
     public void GenerateCheckBoxes(String maxSlot) {
         int capacity = Integer.valueOf(maxSlot);
+        System.out.println(capacity);
         int columns = 10;
         int rows = capacity / columns;
 
@@ -481,6 +550,8 @@ public class formOrderTicket extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnOrder;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
