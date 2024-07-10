@@ -4,6 +4,12 @@
 <xsd:import namespace="http://services.ezeventparking/" schemaLocation="http://localhost:8080/EzEventParkingWS/EventReservationWS?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="ClaimReservation">
+<part name="parameters" element="tns:ClaimReservation"/>
+</message>
+<message name="ClaimReservationResponse">
+<part name="parameters" element="tns:ClaimReservationResponse"/>
+</message>
 <message name="BuyEventReservation">
 <part name="parameters" element="tns:BuyEventReservation"/>
 </message>
@@ -22,13 +28,11 @@
 <message name="GetAllEventReservationResponse">
 <part name="parameters" element="tns:GetAllEventReservationResponse"/>
 </message>
-<message name="ClaimReservation">
-<part name="parameters" element="tns:ClaimReservation"/>
-</message>
-<message name="ClaimReservationResponse">
-<part name="parameters" element="tns:ClaimReservationResponse"/>
-</message>
 <portType name="EventReservationWS">
+<operation name="ClaimReservation">
+<input wsam:Action="http://services.ezeventparking/EventReservationWS/ClaimReservationRequest" message="tns:ClaimReservation"/>
+<output wsam:Action="http://services.ezeventparking/EventReservationWS/ClaimReservationResponse" message="tns:ClaimReservationResponse"/>
+</operation>
 <operation name="BuyEventReservation">
 <input wsam:Action="http://services.ezeventparking/EventReservationWS/BuyEventReservationRequest" message="tns:BuyEventReservation"/>
 <output wsam:Action="http://services.ezeventparking/EventReservationWS/BuyEventReservationResponse" message="tns:BuyEventReservationResponse"/>
@@ -41,13 +45,18 @@
 <input wsam:Action="http://services.ezeventparking/EventReservationWS/GetAllEventReservationRequest" message="tns:GetAllEventReservation"/>
 <output wsam:Action="http://services.ezeventparking/EventReservationWS/GetAllEventReservationResponse" message="tns:GetAllEventReservationResponse"/>
 </operation>
-<operation name="ClaimReservation">
-<input wsam:Action="http://services.ezeventparking/EventReservationWS/ClaimReservationRequest" message="tns:ClaimReservation"/>
-<output wsam:Action="http://services.ezeventparking/EventReservationWS/ClaimReservationResponse" message="tns:ClaimReservationResponse"/>
-</operation>
 </portType>
 <binding name="EventReservationWSPortBinding" type="tns:EventReservationWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<operation name="ClaimReservation">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="BuyEventReservation">
 <soap:operation soapAction=""/>
 <input>
@@ -67,15 +76,6 @@
 </output>
 </operation>
 <operation name="GetAllEventReservation">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="ClaimReservation">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

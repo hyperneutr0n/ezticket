@@ -167,6 +167,10 @@ public class formMenuMain extends javax.swing.JFrame {
     private void btnAcaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaraActionPerformed
         // TODO add your handling code here:
         formMenuEvent frm =  new formMenuEvent();
+        frm.userID = userID;
+        frm.labelNama.setText(username);
+        frm.setVisible(true);
+        this.setVisible(false);
 //        frm.userID = "";
 //        frm.username = "";
     }//GEN-LAST:event_btnAcaraActionPerformed

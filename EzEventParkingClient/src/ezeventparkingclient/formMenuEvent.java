@@ -4,6 +4,11 @@
  */
 package ezeventparkingclient;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.net.Socket;
+import java.util.ArrayList;
+
 /**
  *
  * @author Nico
@@ -13,6 +18,12 @@ public class formMenuEvent extends javax.swing.JFrame {
     /**
      * Creates new form FormMenu
      */
+    Socket clientSocket;
+    BufferedReader msgFromServer;
+    DataOutputStream msgToServer;
+    public String userID;
+    ArrayList<String> listIndexLocation = new ArrayList<>();
+    
     public formMenuEvent() {
         initComponents();
     }
@@ -133,6 +144,11 @@ public class formMenuEvent extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("More...");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel2MousePressed(evt);
+            }
+        });
         jPanel1.add(jLabel2);
         jLabel2.setBounds(440, 500, 50, 20);
 
@@ -180,7 +196,7 @@ public class formMenuEvent extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel5);
-        jPanel5.setBounds(50, 20, 203, 249);
+        jPanel5.setBounds(50, 20, 203, 244);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -224,7 +240,7 @@ public class formMenuEvent extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel9);
-        jPanel9.setBounds(290, 20, 203, 249);
+        jPanel9.setBounds(290, 20, 203, 244);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -268,7 +284,7 @@ public class formMenuEvent extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel10);
-        jPanel10.setBounds(530, 20, 203, 249);
+        jPanel10.setBounds(530, 20, 203, 244);
 
         jPanel1.add(jPanel6);
         jPanel6.setBounds(50, 190, 800, 290);
@@ -288,6 +304,15 @@ public class formMenuEvent extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
+        // TODO add your handling code here:
+        formMenuSelection frm = new formMenuSelection();
+        frm.userID = userID;
+        frm.labelNama.setText(labelNama.getText());
+        frm.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jLabel2MousePressed
 
     /**
      * @param args the command line arguments
@@ -370,7 +395,7 @@ public class formMenuEvent extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel labelEvent;
-    private javax.swing.JLabel labelNama;
+    public javax.swing.JLabel labelNama;
     private javax.swing.JLabel labelNama1;
     private javax.swing.JLabel labelTiket;
     private javax.swing.JLabel lblNamaEvent;

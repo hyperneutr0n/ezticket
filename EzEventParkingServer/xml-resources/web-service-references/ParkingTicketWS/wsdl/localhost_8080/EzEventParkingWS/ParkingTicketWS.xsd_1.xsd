@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.4.3 (RELEASE-2.4.3-ad3323c; 2019-01-21T17:46:06+0000) JAXWS-RI/2.3.2 JAXWS-API/2.3.2 JAXB-RI/2.3.2 JAXB-API/2.3.2 git-revision#unknown. --><xs:schema xmlns:tns="http://services.ezeventparking/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://services.ezeventparking/">
+
+<xs:element name="BuyParkingTicket" type="tns:BuyParkingTicket"/>
+
+<xs:element name="BuyParkingTicketResponse" type="tns:BuyParkingTicketResponse"/>
+
+<xs:element name="GetAllParkingTicket" type="tns:GetAllParkingTicket"/>
+
+<xs:element name="GetAllParkingTicketResponse" type="tns:GetAllParkingTicketResponse"/>
+
+<xs:element name="GetAllUserTicket" type="tns:GetAllUserTicket"/>
+
+<xs:element name="GetAllUserTicketResponse" type="tns:GetAllUserTicketResponse"/>
+
+<xs:element name="GetOccupiedSlot" type="tns:GetOccupiedSlot"/>
+
+<xs:element name="GetOccupiedSlotResponse" type="tns:GetOccupiedSlotResponse"/>
+
+<xs:complexType name="GetOccupiedSlot">
+<xs:sequence>
+<xs:element name="reservationDate" type="xs:string" minOccurs="0"/>
+<xs:element name="parkingLotID" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetOccupiedSlotResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="BuyParkingTicket">
+<xs:sequence>
+<xs:element name="userID" type="xs:int"/>
+<xs:element name="parkingLotID" type="xs:int"/>
+<xs:element name="slotNumber" type="xs:string" minOccurs="0"/>
+<xs:element name="ticketPrice" type="xs:double"/>
+<xs:element name="reservationDate" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="BuyParkingTicketResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetAllParkingTicket">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="GetAllParkingTicketResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetAllUserTicket">
+<xs:sequence>
+<xs:element name="userID" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="GetAllUserTicketResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
