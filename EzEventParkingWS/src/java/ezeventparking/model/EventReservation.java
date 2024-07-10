@@ -218,7 +218,7 @@ public class EventReservation extends Model {
         } else {
             claim_date = null;
         }
-        return this.getUser().getId() + "," + this.getEvent().getName() + "," + this.getReservationDate().toString() + "," + claim_date;
+        return this.getUser().getId() + "," + this.getEvent().getId() + "," + this.getEvent().getName() + "," + this.getReservationDate().toString() + "," + claim_date;
     }
     // </editor-fold>
 }
