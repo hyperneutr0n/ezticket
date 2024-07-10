@@ -114,7 +114,7 @@ public class Event extends Model {
             result = stmt.executeQuery(sql);
 
             while (result.next()) {
-                Location rowLocation = new Location(result.getString("location_name"));
+                Location rowLocation = new Location(result.getString("locations_id"), result.getString("location_name"));
 
                 Event event = new Event(
                         result.getInt("id"),
@@ -219,11 +219,12 @@ public class Event extends Model {
 
     @Override
     public String toString() {
-        return this.getId() + ","
-                + this.getName() + ","
-                + this.getDescription() + ","
-                + this.getLocation().getName() + ","
-                + this.getPrice() + ","
+        return this.getId() + ";"
+                + this.getName() + ";"
+                + this.getDescription() + ";"
+                + this.getLocation().getId() + ";"
+                + this.getLocation().getName() + ";"
+                + this.getPrice() + ";"
                 + this.getDate().toString();
     }
     // </editor-fold>
