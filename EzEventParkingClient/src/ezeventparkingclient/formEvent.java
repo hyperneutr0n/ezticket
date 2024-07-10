@@ -157,7 +157,6 @@ public class formEvent extends javax.swing.JFrame {
         jLabel4.setBounds(440, 490, 50, 20);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
@@ -242,9 +241,6 @@ public class formEvent extends javax.swing.JFrame {
         jLabel2.setText("More...");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(440, 490, 50, 20);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 0, 0);
 
         jPanel9.setBackground(new java.awt.Color(229, 237, 252));
         jPanel9.setLayout(null);
@@ -347,8 +343,18 @@ public class formEvent extends javax.swing.JFrame {
         jPanel9.add(jLabel5);
         jLabel5.setBounds(30, 140, 410, 230);
 
-        getContentPane().add(jPanel9);
-        jPanel9.setBounds(0, 0, 690, 410);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -356,8 +362,9 @@ public class formEvent extends javax.swing.JFrame {
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
         // TODO add your handling code here:
         try {
-            clientSocket = new Socket("localhost", 6000);
-            
+           // clientSocket = new Socket("localhost", 6000);
+           //GANTI CLIENT SOCKET
+
             String msg = "eventreservation/buyeventreservation/" + userID + "/" + eventID + "/" + labelDate.getText() + " 00:00:00.0" + "\n";
             sendMessage(msg);
 
