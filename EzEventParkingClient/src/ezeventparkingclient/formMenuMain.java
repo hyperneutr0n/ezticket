@@ -161,6 +161,7 @@ public class formMenuMain extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        System.out.println(userID);
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAcaraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaraActionPerformed

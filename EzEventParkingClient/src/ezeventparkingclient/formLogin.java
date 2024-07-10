@@ -9,6 +9,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -165,9 +167,12 @@ public class formLogin extends javax.swing.JFrame {
             String chatServer;
             BufferedReader chatFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             chatServer = chatFromServer.readLine();
-            if (!chatServer.equals("null")) {
-                String response[] = chatServer.split(",");
+            String[] responses = chatServer.split("/");
 
+            if (responses[0].equals("SUCCESS")) {
+                String data = responses[1];
+
+                String response[] = data.split(",");
                 String ID = response[0];
                 String usernameSEND = response[3];
 

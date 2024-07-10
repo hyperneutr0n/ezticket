@@ -183,7 +183,8 @@ public class formHistoryParking extends javax.swing.JFrame {
             model.setRowCount(0);
             clientSocket = SocketManager.getInstance().getClientSocket();
             // new Socket("ipaddress", 12345);
-            String msg = "parkingticket/getalluserticket" + userID + "\n";
+            System.out.println(userID);
+            String msg = "parkingticket/getalluserticket/" + userID + "\n";
 
             sendMessage(msg);
 
@@ -201,7 +202,7 @@ public class formHistoryParking extends javax.swing.JFrame {
                     rowData[0] = dataMember[3];
                     rowData[1] = dataMember[3]; //GANTI MALL
                     rowData[2] = dataMember[4];
-
+              
                     model.addRow(rowData);
 
                 }
