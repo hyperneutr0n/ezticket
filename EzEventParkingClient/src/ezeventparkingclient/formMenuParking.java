@@ -28,6 +28,7 @@ public class formMenuParking extends javax.swing.JFrame {
     DataOutputStream msgToServer;
     public String userID;
     ArrayList<String> listIndexLocation = new ArrayList<>();
+    public String username;
 
     public formMenuParking() {
         initComponents();
@@ -260,8 +261,8 @@ public class formMenuParking extends javax.swing.JFrame {
                 frm.labelLokasi.setText(locationString);
                 frm.labelDate.setText(dateFormat.format(dateTimeStamp));
                 frm.userID = this.userID;
-                String username = this.labelAccount.getText();
-                frm.labelAccount.setText(username);
+                frm.labelAccount.setText(this.username);
+                frm.username = this.username;
                 frm.parkingLotID = String.valueOf(id);
                 int countOccupied = 0;
                 for (int i = 2; i < responses.length; i++) {

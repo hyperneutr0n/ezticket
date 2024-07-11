@@ -37,7 +37,8 @@ public class formOrderTicket extends javax.swing.JFrame {
     public int count;
     public String userID;
     public String parkingLotID;
-    
+    public String username;
+
     public formOrderTicket() {
         initComponents();
     }
@@ -345,18 +346,18 @@ public class formOrderTicket extends javax.swing.JFrame {
             String ticket = labelTicket.getText();
             String msg = "parkingticket/buyparkingticket/" + userID + "/" + parkingLotID + "/" + ticket + "/" + "10000/" + labelDate.getText() + " 00:00:00.0" + "\n";
             sendMessage(msg);
-            
+
             String response = getMessage();
-            
+
             JOptionPane.showMessageDialog(this, response);
-            
+
             formMenuMain frm = new formMenuMain();
             frm.userID = this.userID;
-            frm.username = this.labelAccount.getText();
-            frm.labelAccount.setText(this.labelAccount.getText());
+            frm.username = this.username;
+            frm.labelAccount.setText(this.username);
             frm.setVisible(true);
             this.setVisible(false);
-            
+
         } catch (Exception ex) {
             System.out.println("Error di formOrderTicket Order");
         }
@@ -400,21 +401,21 @@ public class formOrderTicket extends javax.swing.JFrame {
         frm.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
-    
+
     public void GenerateCheckBoxes(String maxSlot) {
         int capacity = Integer.valueOf(maxSlot);
         System.out.println(capacity);
         int columns = 10;
         int rows = capacity / columns;
-        
+
         panelTicket.setPreferredSize(new Dimension(630, 250));
         panelTicket.setLayout(new GridLayout(rows, columns));
-        
+
         for (int i = 0; i < rows; i++) {
             char rowLetter = (char) ('A' + i);
             for (int j = 1; j <= columns; j++) {
                 JCheckBox checkBox = new JCheckBox(rowLetter + String.valueOf(j));
-                
+
                 checkBox.setEnabled(true);
                 checkBox.addItemListener(new ItemListener() {
                     public void itemStateChanged(ItemEvent e) {
@@ -433,19 +434,19 @@ public class formOrderTicket extends javax.swing.JFrame {
         panelTicket.revalidate();
         panelTicket.repaint();
     }
-    
+
     public void updateCheckboxes(ArrayList<String> listBoughtTickets) {
         Component[] components = panelTicket.getComponents();
-        
+
         for (Component component : components) {
             if (component instanceof JCheckBox) {
                 JCheckBox checkBox = (JCheckBox) component;
                 String checkBoxName = checkBox.getText();
-                
+
                 checkBox.setEnabled(true);
                 checkBox.setSelected(false);
                 System.out.println("Checkbox: " + checkBoxName + " Enabled: " + checkBox.isEnabled() + " Selected: " + checkBox.isSelected());
-                
+
                 if (listBoughtTickets.contains(checkBoxName)) {
                     checkBox.setSelected(true);
                     checkBox.setEnabled(false);
@@ -456,14 +457,14 @@ public class formOrderTicket extends javax.swing.JFrame {
         panelTicket.revalidate();
         panelTicket.repaint();
     }
-    
+
     private void disableOtherCheckboxes(JCheckBox selectedCheckbox) {
         Component[] components = panelTicket.getComponents();
-        
+
         for (Component component : components) {
             if (component instanceof JCheckBox) {
                 JCheckBox checkBox = (JCheckBox) component;
-                
+
                 if (checkBox != selectedCheckbox) {
                     checkBox.setEnabled(false);
                 }
@@ -472,15 +473,15 @@ public class formOrderTicket extends javax.swing.JFrame {
         panelTicket.revalidate();
         panelTicket.repaint();
     }
-    
+
     private void enableCheckboxes(ArrayList<String> listBoughtTickets) {
         Component[] components = panelTicket.getComponents();
-        
+
         for (Component component : components) {
             if (component instanceof JCheckBox) {
                 JCheckBox checkBox = (JCheckBox) component;
                 String checkBoxName = checkBox.getText();
-                
+
                 if (!listBoughtTickets.contains(checkBoxName)) {
                     checkBox.setEnabled(true);
                 }
@@ -527,16 +528,16 @@ public class formOrderTicket extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void sendMessage(String s) {
         try {
             msgToServer = new DataOutputStream(clientSocket.getOutputStream());
             msgToServer.writeBytes(s);
-            
+
         } catch (Exception e) {
         }
     }
-    
+
     public String getMessage() {
         String chatServer = "";
         try {
@@ -544,9 +545,9 @@ public class formOrderTicket extends javax.swing.JFrame {
             chatServer = msgFromServer.readLine();
         } catch (Exception ex) {
         }
-        
+
         return chatServer;
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

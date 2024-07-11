@@ -213,6 +213,7 @@ public class formMenuMain extends javax.swing.JFrame {
         formMenuParking frm = new formMenuParking();
         frm.userID = userID;
         frm.labelAccount.setText(username);
+        frm.username = this.username;
         frm.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnParkingActionPerformed
