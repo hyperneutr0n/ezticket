@@ -43,6 +43,7 @@ public class formClaimTicket extends javax.swing.JFrame {
         model.setRowCount(0);
         String msg = "eventreservation/getalluserreservation/" + userID + "\n";
         sendMessage(msg);
+        System.out.println(msg);
 
         String response = getMessage();
         ArrayList<String> splitResponse = new ArrayList<>(Arrays.asList(response.split("/")));
@@ -82,12 +83,13 @@ public class formClaimTicket extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         labelEvent2 = new javax.swing.JLabel();
-        labelNama4 = new javax.swing.JLabel();
+        labelAccount = new javax.swing.JLabel();
         labelNama5 = new javax.swing.JLabel();
         labelTiket2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnReservasi = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -106,9 +108,9 @@ public class formClaimTicket extends javax.swing.JFrame {
         labelEvent2.setText("Event");
         labelEvent2.setToolTipText("");
 
-        labelNama4.setForeground(new java.awt.Color(0, 0, 0));
-        labelNama4.setText("SIGMA");
-        labelNama4.setToolTipText("");
+        labelAccount.setForeground(new java.awt.Color(0, 0, 0));
+        labelAccount.setText("SIGMA");
+        labelAccount.setToolTipText("");
 
         labelNama5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelNama5.setForeground(new java.awt.Color(0, 0, 0));
@@ -131,7 +133,7 @@ public class formClaimTicket extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(labelEvent2)
                 .addGap(33, 33, 33)
-                .addComponent(labelNama4)
+                .addComponent(labelAccount)
                 .addGap(50, 50, 50))
         );
         jPanel10Layout.setVerticalGroup(
@@ -140,7 +142,7 @@ public class formClaimTicket extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelEvent2)
-                    .addComponent(labelNama4)
+                    .addComponent(labelAccount)
                     .addComponent(labelNama5)
                     .addComponent(labelTiket2))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -178,14 +180,23 @@ public class formClaimTicket extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(30, 90, 840, 402);
 
-        btnReservasi.setText("Reservasi");
+        btnReservasi.setText("Claim");
         btnReservasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReservasiActionPerformed(evt);
             }
         });
         jPanel1.add(btnReservasi);
-        btnReservasi.setBounds(390, 510, 130, 40);
+        btnReservasi.setBounds(30, 510, 130, 40);
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBack);
+        btnBack.setBounds(740, 510, 130, 40);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -253,6 +264,7 @@ public class formClaimTicket extends javax.swing.JFrame {
         // TODO add your handling code here:
         clientSocket = SocketManager.getInstance().getClientSocket();
         refreshTable();
+        
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -270,6 +282,16 @@ public class formClaimTicket extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        formMenuMain frm = new formMenuMain();
+            frm.userID = this.userID;
+            frm.username = this.labelAccount.getText();
+            frm.labelAccount.setText(this.labelAccount.getText());
+            frm.setVisible(true);
+            this.setVisible(false);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,13 +332,14 @@ public class formClaimTicket extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReservasi;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    public javax.swing.JLabel labelAccount;
     private javax.swing.JLabel labelEvent2;
-    private javax.swing.JLabel labelNama4;
     private javax.swing.JLabel labelNama5;
     private javax.swing.JLabel labelTiket2;
     // End of variables declaration//GEN-END:variables

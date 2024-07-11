@@ -37,6 +37,7 @@ public class formOrderTicket extends javax.swing.JFrame {
     public int count;
     public String userID;
     public String parkingLotID;
+    public String username;
 
     public formOrderTicket() {
         initComponents();
@@ -352,8 +353,8 @@ public class formOrderTicket extends javax.swing.JFrame {
 
             formMenuMain frm = new formMenuMain();
             frm.userID = this.userID;
-            frm.username = this.labelAccount.getText();
-            frm.labelAccount.setText(this.labelAccount.getText());
+            frm.username = this.username;
+            frm.labelAccount.setText(this.username);
             frm.setVisible(true);
             this.setVisible(false);
 

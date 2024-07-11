@@ -28,6 +28,7 @@ public class formMenuParking extends javax.swing.JFrame {
     DataOutputStream msgToServer;
     public String userID;
     ArrayList<String> listIndexLocation = new ArrayList<>();
+    public String username;
 
     public formMenuParking() {
         initComponents();
@@ -253,14 +254,15 @@ public class formMenuParking extends javax.swing.JFrame {
             String[] responses = response.split("/");
 
             if (responses[0].equals("SUCCESS")) {
-                String capacity = responses[1];
+                String capacity = responses[1];     
                 System.out.println(capacity);
                 formOrderTicket frm = new formOrderTicket();
                 frm.labelTotal.setText(capacity);
                 frm.labelLokasi.setText(locationString);
                 frm.labelDate.setText(dateFormat.format(dateTimeStamp));
                 frm.userID = this.userID;
-                frm.labelAccount.setText(this.labelAccount.getText());
+                frm.labelAccount.setText(this.username);
+                frm.username = this.username;
                 frm.parkingLotID = String.valueOf(id);
                 int countOccupied = 0;
                 for (int i = 2; i < responses.length; i++) {

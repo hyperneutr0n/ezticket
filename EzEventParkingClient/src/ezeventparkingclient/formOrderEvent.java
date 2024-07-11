@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author Nico
  */
-public class formEvent extends javax.swing.JFrame {
+public class formOrderEvent extends javax.swing.JFrame {
 
     Socket clientSocket;
     BufferedReader msgFromServer;
@@ -31,7 +31,7 @@ public class formEvent extends javax.swing.JFrame {
     /**
      * Creates new form formOrderEvent
      */
-    public formEvent() {
+    public formOrderEvent() {
         initComponents();
     }
 
@@ -40,7 +40,7 @@ public class formEvent extends javax.swing.JFrame {
             labelNamaEvent.setText(name);
             labelDate.setText(date);
             labelLokasi.setText(location);
-            labelDesc.setText(desc);
+            jTextArea1.setText(desc);
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "error: " + e);
@@ -88,7 +88,8 @@ public class formEvent extends javax.swing.JFrame {
         labelLokasi = new javax.swing.JLabel();
         labelDate = new javax.swing.JLabel();
         labelNamaEvent = new javax.swing.JLabel();
-        labelDesc = new javax.swing.JLabel();
+        textDesc = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setLayout(null);
@@ -328,29 +329,29 @@ public class formEvent extends javax.swing.JFrame {
         jPanel9.add(btnReserve);
         btnReserve.setBounds(470, 320, 139, 30);
 
-        labelbiasa2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelbiasa2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelbiasa2.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa2.setText("Tanggal:");
         jPanel9.add(labelbiasa2);
-        labelbiasa2.setBounds(470, 150, 110, 20);
+        labelbiasa2.setBounds(470, 160, 80, 20);
 
-        labelbiasa3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelbiasa3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelbiasa3.setForeground(new java.awt.Color(0, 0, 0));
         labelbiasa3.setText("Lokasi:");
         jPanel9.add(labelbiasa3);
-        labelbiasa3.setBounds(470, 130, 110, 20);
+        labelbiasa3.setBounds(470, 120, 110, 25);
 
-        labelLokasi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelLokasi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelLokasi.setForeground(new java.awt.Color(0, 0, 0));
         labelLokasi.setText("LOKASI");
         jPanel9.add(labelLokasi);
-        labelLokasi.setBounds(580, 130, 110, 20);
+        labelLokasi.setBounds(550, 120, 110, 20);
 
-        labelDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelDate.setForeground(new java.awt.Color(0, 0, 0));
         labelDate.setText("DATE");
         jPanel9.add(labelDate);
-        labelDate.setBounds(530, 150, 160, 20);
+        labelDate.setBounds(550, 160, 160, 20);
 
         labelNamaEvent.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         labelNamaEvent.setForeground(new java.awt.Color(0, 0, 0));
@@ -358,23 +359,24 @@ public class formEvent extends javax.swing.JFrame {
         jPanel9.add(labelNamaEvent);
         labelNamaEvent.setBounds(34, 88, 446, 47);
 
-        labelDesc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelDesc.setForeground(new java.awt.Color(0, 0, 0));
-        labelDesc.setText("--deskripsi--");
-        labelDesc.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelDesc.setAutoscrolls(true);
-        jPanel9.add(labelDesc);
-        labelDesc.setBounds(30, 140, 410, 230);
+        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        textDesc.setViewportView(jTextArea1);
+
+        jPanel9.add(textDesc);
+        textDesc.setBounds(30, 140, 390, 210);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 704, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,12 +392,19 @@ public class formEvent extends javax.swing.JFrame {
     private void btnReserveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReserveActionPerformed
         // TODO add your handling code here:
         try {
-            String msg = "eventreservation/buyeventreservation/" + userID + "/" + String.valueOf(eventID) + "/" + labelDate.getText() + "\n";
+            String msg = "eventreservation/buyeventreservation/" + userID + "/" + String.valueOf(eventID) + "/" + labelDate.getText();
             System.out.println(msg);
             sendMessage(msg);
 
             String respond = getMessage();
             JOptionPane.showMessageDialog(this, respond);
+            
+            formMenuMain frm = new formMenuMain();
+            frm.userID = this.userID;
+            frm.username = this.labelAccount.getText();
+            frm.labelAccount.setText(this.labelAccount.getText());
+            frm.setVisible(true);
+            this.setVisible(false);
 
         } catch (Exception ex) {
             System.out.println("Error di pembelian");
@@ -425,14 +434,22 @@ public class formEvent extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formOrderEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formOrderEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formOrderEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formOrderEvent.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -445,7 +462,7 @@ public class formEvent extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new formEvent().setVisible(true);
+                new formOrderEvent().setVisible(true);
             }
         });
     }
@@ -484,9 +501,9 @@ public class formEvent extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JTextArea jTextArea1;
     public javax.swing.JLabel labelAccount;
     private javax.swing.JLabel labelDate;
-    private javax.swing.JLabel labelDesc;
     private javax.swing.JLabel labelEvent;
     private javax.swing.JLabel labelEvent1;
     private javax.swing.JLabel labelEvent2;
@@ -502,5 +519,6 @@ public class formEvent extends javax.swing.JFrame {
     private javax.swing.JLabel labelTiket2;
     private javax.swing.JLabel labelbiasa2;
     private javax.swing.JLabel labelbiasa3;
+    private javax.swing.JScrollPane textDesc;
     // End of variables declaration//GEN-END:variables
 }

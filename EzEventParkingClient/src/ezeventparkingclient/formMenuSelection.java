@@ -64,6 +64,7 @@ public class formMenuSelection extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnSelect = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -183,21 +184,35 @@ public class formMenuSelection extends javax.swing.JFrame {
             }
         });
 
+        btnBack.setText("BACK");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(403, 403, 403)
-                .addComponent(btnSelect))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(btnSelect)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack)
+                .addGap(50, 50, 50))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSelect)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSelect)
+                    .addComponent(btnBack))
                 .addContainerGap())
         );
 
@@ -274,21 +289,19 @@ public class formMenuSelection extends javax.swing.JFrame {
         desc = listIndexDesc.get(selectedRow);
         location = listIndexLocation.get(selectedRow);
         date = listIndexDate.get(selectedRow);
-        
+
         System.out.println(eventID);
         System.out.println(name);
         System.out.println(date);
+        System.out.println(location);
+        System.out.println(desc);
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
         // TODO add your handling code here:
         try {
             if (selectedRow != -1) {
-                formEvent frm = new formEvent();
-                System.out.println(userID);
-                System.out.println(eventID);
-                System.out.println(name);
-                System.out.println(desc);
+                formOrderEvent frm = new formOrderEvent();
                 frm.userID = userID;
                 frm.labelAccount.setText(labelNama.getText());
                 frm.eventID = eventID;
@@ -296,6 +309,11 @@ public class formMenuSelection extends javax.swing.JFrame {
                 frm.desc = desc;
                 frm.date = date;
                 frm.location = location;
+                System.out.println(eventID);
+                System.out.println(name);
+                System.out.println(date);
+                System.out.println(location);
+                System.out.println(desc);
                 frm.setVisible(true);
                 this.setVisible(false);
             }
@@ -303,6 +321,15 @@ public class formMenuSelection extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnSelectActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        formMenuMain frm = new formMenuMain();
+        frm.userID = userID;
+        frm.labelAccount.setText(this.labelNama.getText());
+        frm.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBackActionPerformed
     public void sendMessage(String s) {
         try {
             msgToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -368,6 +395,7 @@ public class formMenuSelection extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSelect;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

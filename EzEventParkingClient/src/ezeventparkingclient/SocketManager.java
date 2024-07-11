@@ -4,7 +4,10 @@
  */
 package ezeventparkingclient;
 
+import java.io.IOException;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,7 +20,7 @@ public class SocketManager {
 
     private SocketManager() {
         try {
-            clientSocket = new Socket("192.168.43.136", 12345);
+            openConnection();
         } catch (Exception Ex) {
             System.out.println("Error di SocketManager");
         }
@@ -34,4 +37,21 @@ public class SocketManager {
         return clientSocket;
     }
 
+    public void openConnection() {
+        try {
+            clientSocket = new Socket("192.168.43.136", 12345);
+        } catch (IOException ex) {
+            Logger.getLogger(SocketManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void closeConnection() {
+        try {
+            if (clientSocket != null && !clientSocket.isClosed()) {
+                this.clientSocket.close();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SocketManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
