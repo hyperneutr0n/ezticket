@@ -70,7 +70,7 @@
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="labelEvent2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="labelNama4" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelAccount" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -81,7 +81,7 @@
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="labelEvent2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelNama4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelAccount" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelNama5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelTiket2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -103,7 +103,7 @@
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelNama4">
+            <Component class="javax.swing.JLabel" name="labelAccount">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -111,6 +111,9 @@
                 <Property name="text" type="java.lang.String" value="SIGMA"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="labelNama5">
               <Properties>
@@ -187,14 +190,27 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnReservasi">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Reservasi"/>
+            <Property name="text" type="java.lang.String" value="Claim"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReservasiActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="390" y="510" width="130" height="40"/>
+              <AbsoluteConstraints x="30" y="510" width="130" height="40"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnBack">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Back"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="740" y="510" width="130" height="40"/>
             </Constraint>
           </Constraints>
         </Component>

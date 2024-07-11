@@ -25,6 +25,7 @@ public class formLogin extends javax.swing.JFrame {
 
     public formLogin() {
         initComponents();
+        SocketManager.getInstance().openConnection();
         clientSocket = SocketManager.getInstance().getClientSocket();
     }
 
