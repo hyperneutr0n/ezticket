@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +27,18 @@ public class formMenuSelection extends javax.swing.JFrame {
     Socket clientSocket;
     BufferedReader msgFromServer;
     DataOutputStream msgToServer;
+    int selectedRow;
+    int eventID;
+    String name;
+    String desc;
+    String location;
+    String date;
+    ArrayList<String> listIndexID = new ArrayList<>();
+    ArrayList<String> listIndexName = new ArrayList<>();
+    ArrayList<String> listIndexDesc = new ArrayList<>();
+    ArrayList<String> listIndexLocation = new ArrayList<>();
+    ArrayList<String> listIndexDate = new ArrayList<>();
+
     public formMenuSelection() {
         initComponents();
     }
@@ -50,6 +63,7 @@ public class formMenuSelection extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        btnSelect = new javax.swing.JButton();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -129,8 +143,6 @@ public class formMenuSelection extends javax.swing.JFrame {
         jPanel1.add(jPanel3);
         jPanel3.setBounds(0, 0, 900, 70);
 
-        jPanel6.setLayout(null);
-
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -164,11 +176,33 @@ public class formMenuSelection extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable2);
 
-        jPanel6.add(jScrollPane2);
-        jScrollPane2.setBounds(0, 0, 900, 410);
+        btnSelect.setText("SELECT");
+        btnSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelectActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(403, 403, 403)
+                .addComponent(btnSelect))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSelect)
+                .addContainerGap())
+        );
 
         jPanel1.add(jPanel6);
-        jPanel6.setBounds(0, 70, 900, 450);
+        jPanel6.setBounds(0, 70, 900, 470);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,7 +214,7 @@ public class formMenuSelection extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         pack();
@@ -194,7 +228,7 @@ public class formMenuSelection extends javax.swing.JFrame {
             model.setRowCount(0);
             clientSocket = SocketManager.getInstance().getClientSocket();
             // new Socket("ipaddress", 12345);
-            System.out.println(userID);
+            //System.out.println(userID);
             String msg = "event/getallevent/" + userID + "\n";
 
             sendMessage(msg);
@@ -209,15 +243,20 @@ public class formMenuSelection extends javax.swing.JFrame {
                 for (String items : splitResponse) {
                     String[] dataMember = items.split(";");
                     Object[] rowData = new Object[4];
-                    
+
                     double priceFormatted = Double.parseDouble(dataMember[5]);
                     rowData[0] = dataMember[1];
-                    rowData[1] = dataMember[2]; //GANTI MALL
+                    rowData[1] = dataMember[2];
                     rowData[2] = dataMember[4];
-                    rowData[3] = (int)priceFormatted;
+                    rowData[3] = (int) priceFormatted;
 
                     model.addRow(rowData);
 
+                    listIndexID.add(dataMember[0]);
+                    listIndexName.add(dataMember[1]);
+                    listIndexDesc.add(dataMember[2]);
+                    listIndexLocation.add(dataMember[4]);
+                    listIndexDate.add(dataMember[6]);
                 }
 
             }
@@ -229,7 +268,41 @@ public class formMenuSelection extends javax.swing.JFrame {
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
+        selectedRow = jTable2.getSelectedRow();
+        eventID = Integer.parseInt(listIndexID.get(selectedRow));
+        name = listIndexName.get(selectedRow);
+        desc = listIndexDesc.get(selectedRow);
+        location = listIndexLocation.get(selectedRow);
+        date = listIndexDate.get(selectedRow);
+        
+        System.out.println(eventID);
+        System.out.println(name);
+        System.out.println(date);
     }//GEN-LAST:event_jTable2MouseClicked
+
+    private void btnSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (selectedRow != -1) {
+                formEvent frm = new formEvent();
+                System.out.println(userID);
+                System.out.println(eventID);
+                System.out.println(name);
+                System.out.println(desc);
+                frm.userID = userID;
+                frm.labelAccount.setText(labelNama.getText());
+                frm.eventID = eventID;
+                frm.name = name;
+                frm.desc = desc;
+                frm.date = date;
+                frm.location = location;
+                frm.setVisible(true);
+                this.setVisible(false);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnSelectActionPerformed
     public void sendMessage(String s) {
         try {
             msgToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -250,6 +323,7 @@ public class formMenuSelection extends javax.swing.JFrame {
         return chatServer;
 
     }
+
     /**
      * @param args the command line arguments
      */
@@ -294,6 +368,7 @@ public class formMenuSelection extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSelect;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
