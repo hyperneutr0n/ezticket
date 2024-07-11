@@ -6,8 +6,12 @@ package ezeventparkingclient;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.Socket;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -51,15 +55,24 @@ public class formMenuEvent extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         lblNamaEvent = new javax.swing.JLabel();
         lblTanggal = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblHarga = new javax.swing.JLabel();
+        lblLokasi = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textDeskripsi1 = new javax.swing.JTextArea();
         jPanel9 = new javax.swing.JPanel();
         lblNamaEvent1 = new javax.swing.JLabel();
         lblTanggal1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblHarga1 = new javax.swing.JLabel();
+        lblLokasi1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textDeskripsi2 = new javax.swing.JTextArea();
         jPanel10 = new javax.swing.JPanel();
         lblNamaEvent2 = new javax.swing.JLabel();
         lblTanggal2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblHarga2 = new javax.swing.JLabel();
+        lblLokasi2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        textDeskripsi3 = new javax.swing.JTextArea();
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -76,6 +89,11 @@ public class formMenuEvent extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(229, 237, 252));
         jPanel1.setLayout(null);
@@ -155,133 +173,95 @@ public class formMenuEvent extends javax.swing.JFrame {
         jPanel6.setLayout(null);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNamaEvent.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNamaEvent.setForeground(new java.awt.Color(0, 0, 0));
+        lblNamaEvent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNamaEvent.setText("--Nama Event--");
+        lblNamaEvent.setAlignmentX(0.5F);
+        jPanel5.add(lblNamaEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 203, -1));
 
         lblTanggal.setForeground(new java.awt.Color(0, 0, 0));
         lblTanggal.setText("--tanggal--");
+        jPanel5.add(lblTanggal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 63, 180, -1));
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("--Deskripsi--");
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblHarga.setForeground(new java.awt.Color(0, 0, 0));
+        lblHarga.setText("--harga--");
+        jPanel5.add(lblHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 82, -1, -1));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(lblNamaEvent))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTanggal)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lblNamaEvent)
-                .addGap(41, 41, 41)
-                .addComponent(lblTanggal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
+        lblLokasi.setForeground(new java.awt.Color(0, 0, 0));
+        lblLokasi.setText("--lokasi--");
+        jPanel5.add(lblLokasi, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 104, -1, -1));
+
+        textDeskripsi1.setBackground(new java.awt.Color(255, 255, 255));
+        textDeskripsi1.setColumns(20);
+        textDeskripsi1.setRows(5);
+        jScrollPane1.setViewportView(textDeskripsi1);
+
+        jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, -1));
 
         jPanel6.add(jPanel5);
         jPanel5.setBounds(50, 20, 203, 244);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNamaEvent1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNamaEvent1.setForeground(new java.awt.Color(0, 0, 0));
+        lblNamaEvent1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNamaEvent1.setText("--Nama Event--");
+        jPanel9.add(lblNamaEvent1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 203, -1));
 
         lblTanggal1.setForeground(new java.awt.Color(0, 0, 0));
         lblTanggal1.setText("--tanggal--");
+        jPanel9.add(lblTanggal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 63, 180, -1));
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("--Deskripsi--");
-        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblHarga1.setForeground(new java.awt.Color(0, 0, 0));
+        lblHarga1.setText("--harga--");
+        jPanel9.add(lblHarga1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 81, -1, -1));
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(lblNamaEvent1))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTanggal1)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lblNamaEvent1)
-                .addGap(41, 41, 41)
-                .addComponent(lblTanggal1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
+        lblLokasi1.setForeground(new java.awt.Color(0, 0, 0));
+        lblLokasi1.setText("--lokasi--");
+        jPanel9.add(lblLokasi1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 103, -1, -1));
+
+        textDeskripsi2.setBackground(new java.awt.Color(255, 255, 255));
+        textDeskripsi2.setColumns(20);
+        textDeskripsi2.setRows(5);
+        jScrollPane2.setViewportView(textDeskripsi2);
+
+        jPanel9.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, -1));
 
         jPanel6.add(jPanel9);
         jPanel9.setBounds(290, 20, 203, 244);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNamaEvent2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNamaEvent2.setForeground(new java.awt.Color(0, 0, 0));
+        lblNamaEvent2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNamaEvent2.setText("--Nama Event--");
+        jPanel10.add(lblNamaEvent2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 26, 203, -1));
 
         lblTanggal2.setForeground(new java.awt.Color(0, 0, 0));
         lblTanggal2.setText("--tanggal--");
+        jPanel10.add(lblTanggal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 63, 180, -1));
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("--Deskripsi--");
-        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblHarga2.setForeground(new java.awt.Color(0, 0, 0));
+        lblHarga2.setText("--harga--");
+        jPanel10.add(lblHarga2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 82, -1, -1));
 
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(lblNamaEvent2))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTanggal2)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lblNamaEvent2)
-                .addGap(41, 41, 41)
-                .addComponent(lblTanggal2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
+        lblLokasi2.setForeground(new java.awt.Color(0, 0, 0));
+        lblLokasi2.setText("--lokasi--");
+        jPanel10.add(lblLokasi2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 104, -1, -1));
+
+        textDeskripsi3.setBackground(new java.awt.Color(255, 255, 255));
+        textDeskripsi3.setColumns(20);
+        textDeskripsi3.setRows(5);
+        jScrollPane3.setViewportView(textDeskripsi3);
+
+        jPanel10.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, -1));
 
         jPanel6.add(jPanel10);
         jPanel10.setBounds(530, 20, 203, 244);
@@ -297,9 +277,7 @@ public class formMenuEvent extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
         );
 
         pack();
@@ -314,6 +292,72 @@ public class formMenuEvent extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jLabel2MousePressed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        clientSocket = SocketManager.getInstance().getClientSocket();
+        // new Socket("ipaddress", 12345);
+        System.out.println(userID);
+        String msg = "event/getallevent/" + userID + "\n";
+
+        sendMessage(msg);
+
+        String response = getMessage();
+
+        ArrayList<String> splitResponse = new ArrayList<>(Arrays.asList(response.split("/")));
+        if (splitResponse.get(0).equals("SUCCESS")) {
+                splitResponse.remove(0);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+                
+                String[] dataEvent1 = splitResponse.get(0).split(";");
+                lblNamaEvent.setText(dataEvent1[1]);
+                LocalDateTime dateTime1 = LocalDateTime.parse(dataEvent1[6], formatter);
+                 // Membuat formatter untuk output yang diinginkan tanpa "T"
+                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                // Mengonversi kembali objek LocalDateTime ke string dengan format yang diinginkan
+                String formattedDate1 = dateTime1.format(outputFormatter);
+                lblTanggal.setText("Date: " + formattedDate1);
+                lblHarga.setText("Price: Rp." + (int)Double.parseDouble(dataEvent1[5]));
+                lblLokasi.setText("Location: " + dataEvent1[4]);
+                textDeskripsi1.setText(dataEvent1[2]);
+                
+                String[] dataEvent2 = splitResponse.get(1).split(";");
+                lblNamaEvent1.setText(dataEvent2[1]);
+                LocalDateTime dateTime2 = LocalDateTime.parse(dataEvent2[6], formatter);
+                lblTanggal1.setText("Date: " + dateTime2);
+                lblHarga1.setText("Price: Rp." + (int)Double.parseDouble(dataEvent2[5]));
+                lblLokasi1.setText("Location: " + dataEvent2[4]);
+                textDeskripsi2.setText(dataEvent2[2]);
+                
+                String[] dataEvent3 = splitResponse.get(2).split(";");
+                lblNamaEvent2.setText(dataEvent3[1]);
+                LocalDateTime dateTime3 = LocalDateTime.parse(dataEvent3[6], formatter);
+                lblTanggal2.setText("Date: " + dataEvent3[6]);
+                lblHarga2.setText("Price: Rp." + (int)Double.parseDouble(dataEvent3[5]));
+                lblLokasi2.setText("Location: " + dataEvent3[4]);
+                textDeskripsi3.setText(dataEvent3[2]);
+            }
+    }//GEN-LAST:event_formWindowOpened
+    public void sendMessage(String s) {
+        try {
+            msgToServer = new DataOutputStream(clientSocket.getOutputStream());
+            msgToServer.writeBytes(s);
+
+        } catch (Exception e) {
+        }
+    }
+
+    public String getMessage() {
+        String chatServer = "";
+        try {
+            msgFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            chatServer = msgFromServer.readLine();
+        } catch (Exception ex) {
+        }
+
+        return chatServer;
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -383,9 +427,6 @@ public class formMenuEvent extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
@@ -394,15 +435,27 @@ public class formMenuEvent extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelEvent;
     public javax.swing.JLabel labelNama;
     private javax.swing.JLabel labelNama1;
     private javax.swing.JLabel labelTiket;
+    private javax.swing.JLabel lblHarga;
+    private javax.swing.JLabel lblHarga1;
+    private javax.swing.JLabel lblHarga2;
+    private javax.swing.JLabel lblLokasi;
+    private javax.swing.JLabel lblLokasi1;
+    private javax.swing.JLabel lblLokasi2;
     private javax.swing.JLabel lblNamaEvent;
     private javax.swing.JLabel lblNamaEvent1;
     private javax.swing.JLabel lblNamaEvent2;
     private javax.swing.JLabel lblTanggal;
     private javax.swing.JLabel lblTanggal1;
     private javax.swing.JLabel lblTanggal2;
+    private javax.swing.JTextArea textDeskripsi1;
+    private javax.swing.JTextArea textDeskripsi2;
+    private javax.swing.JTextArea textDeskripsi3;
     // End of variables declaration//GEN-END:variables
 }

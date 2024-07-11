@@ -17,7 +17,7 @@ public class SocketManager {
 
     private SocketManager() {
         try {
-            clientSocket = new Socket("192.168.180.136", 12345);
+            clientSocket = new Socket("192.168.249.136", 12345);
         } catch (Exception Ex) {
             System.out.println("Error di SocketManager");
         }
