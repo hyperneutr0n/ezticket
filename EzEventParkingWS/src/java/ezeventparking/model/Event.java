@@ -114,7 +114,7 @@ public class Event extends Model {
             result = stmt.executeQuery(sql);
 
             while (result.next()) {
-                Location rowLocation = new Location(result.getString("locations_id"), result.getString("location_name"));
+                Location rowLocation = new Location(result.getInt("locations_id"), result.getString("location_name"));
 
                 Event event = new Event(
                         result.getInt("id"),

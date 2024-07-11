@@ -2,9 +2,9 @@
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services/>
   <clients>
-    <client name="ParkingLotWS">
-      <wsdl-url>http://localhost:8080/EzEventParkingWS/ParkingLotWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8080/EzEventParkingWS/ParkingLotWS.wsdl</local-wsdl-file>
+    <client name="UserWS">
+      <wsdl-url>http://localhost:8080/EzEventParkingWS/UserWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8080/EzEventParkingWS/UserWS.wsdl</local-wsdl-file>
       <package-name>ezeventparking.services</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
@@ -22,39 +22,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/EzEventParkingWS/ParkingLotWS?wsdl</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xnocompile</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>xendorsed</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-      </wsimport-options>
-    </client>
-    <client name="EventReservationWS">
-      <wsdl-url>http://localhost:8080/EzEventParkingWS/EventReservationWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8080/EzEventParkingWS/EventReservationWS.wsdl</local-wsdl-file>
-      <package-name>ezeventparking.services</package-name>
-      <catalog-file>catalog.xml</catalog-file>
-      <wsimport-options>
-        <wsimport-option>
-          <wsimport-option-name>extension</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>verbose</wsimport-option-name>
-          <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>fork</wsimport-option-name>
-          <wsimport-option-value>false</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/EzEventParkingWS/EventReservationWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8080/EzEventParkingWS/UserWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -130,9 +98,9 @@
         </wsimport-option>
       </wsimport-options>
     </client>
-    <client name="UserWS">
-      <wsdl-url>http://localhost:8080/EzEventParkingWS/UserWS?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8080/EzEventParkingWS/UserWS.wsdl</local-wsdl-file>
+    <client name="ParkingLotWS">
+      <wsdl-url>http://localhost:8080/EzEventParkingWS/ParkingLotWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8080/EzEventParkingWS/ParkingLotWS.wsdl</local-wsdl-file>
       <package-name>ezeventparking.services</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
@@ -150,7 +118,7 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/EzEventParkingWS/UserWS?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:8080/EzEventParkingWS/ParkingLotWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
@@ -183,6 +151,38 @@
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
           <wsimport-option-value>http://localhost:8080/EzEventParkingWS/ParkingTicketWS?wsdl</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xendorsed</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </client>
+    <client name="EventReservationWS">
+      <wsdl-url>http://localhost:8080/EzEventParkingWS/EventReservationWS?wsdl</wsdl-url>
+      <local-wsdl-file>localhost_8080/EzEventParkingWS/EventReservationWS.wsdl</local-wsdl-file>
+      <package-name>ezeventparking.services</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>fork</wsimport-option-name>
+          <wsimport-option-value>false</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>wsdlLocation</wsimport-option-name>
+          <wsimport-option-value>http://localhost:8080/EzEventParkingWS/EventReservationWS?wsdl</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xnocompile</wsimport-option-name>
