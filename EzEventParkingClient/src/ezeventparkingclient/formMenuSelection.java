@@ -139,14 +139,14 @@ public class formMenuSelection extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Name", "Description", "Price", ""
+                "Name", "Description", "Location", "Price"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -165,7 +165,7 @@ public class formMenuSelection extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         jPanel6.add(jScrollPane2);
-        jScrollPane2.setBounds(0, 0, 900, 450);
+        jScrollPane2.setBounds(0, 0, 900, 410);
 
         jPanel1.add(jPanel6);
         jPanel6.setBounds(0, 70, 900, 450);
@@ -207,12 +207,14 @@ public class formMenuSelection extends javax.swing.JFrame {
                 splitResponse.remove(0);
 
                 for (String items : splitResponse) {
-                    String[] dataMember = items.split(",");
+                    String[] dataMember = items.split(";");
                     Object[] rowData = new Object[4];
-
+                    
+                    double priceFormatted = Double.parseDouble(dataMember[5]);
                     rowData[0] = dataMember[1];
                     rowData[1] = dataMember[2]; //GANTI MALL
                     rowData[2] = dataMember[4];
+                    rowData[3] = (int)priceFormatted;
 
                     model.addRow(rowData);
 
