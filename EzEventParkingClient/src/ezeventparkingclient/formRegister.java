@@ -191,7 +191,7 @@ public class formRegister extends javax.swing.JFrame {
                     + txtFullname.getText() + "/"
                     + txtEmail.getText() + "/"
                     + txtUsername.getText() + "/"
-                    + txtPassword.getText());
+                    + txtPassword.getText() + "\n");
 
             String hasil = in.readLine();
 
