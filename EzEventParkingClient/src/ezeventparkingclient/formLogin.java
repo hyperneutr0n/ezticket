@@ -4,15 +4,12 @@
  */
 package ezeventparkingclient;
 
+import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,6 +25,7 @@ public class formLogin extends javax.swing.JFrame {
 
     public formLogin() {
         initComponents();
+        clientSocket = SocketManager.getInstance().getClientSocket();
     }
 
     /**
@@ -61,14 +59,7 @@ public class formLogin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("PASSWORD:");
 
-        txtUsername.setBackground(new java.awt.Color(255, 255, 255));
-        txtUsername.setForeground(new java.awt.Color(0, 0, 0));
-
-        txtPassword.setBackground(new java.awt.Color(255, 255, 255));
-        txtPassword.setForeground(new java.awt.Color(0, 0, 0));
-
-        btnLogin.setBackground(new java.awt.Color(255, 255, 255));
-        btnLogin.setForeground(new java.awt.Color(0, 0, 0));
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,9 +72,7 @@ public class formLogin extends javax.swing.JFrame {
         jLabel3.setText("Dont have an account?");
         jLabel3.setToolTipText("");
 
-        btnCreateAccount.setBackground(new java.awt.Color(255, 255, 255));
-        btnCreateAccount.setForeground(new java.awt.Color(0, 0, 0));
-        btnCreateAccount.setText("Create");
+        btnCreateAccount.setText("Register NOW");
         btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateAccountActionPerformed(evt);
@@ -94,10 +83,6 @@ public class formLogin extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnLogin)
-                .addGap(348, 348, 348))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -112,7 +97,10 @@ public class formLogin extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(320, 320, 320)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(224, 224, 224)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCreateAccount)))
@@ -129,13 +117,13 @@ public class formLogin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(31, 31, 31)
                 .addComponent(btnLogin)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(btnCreateAccount))
-                .addGap(89, 89, 89))
+                .addGap(70, 70, 70))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,9 +142,6 @@ public class formLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
-            clientSocket = SocketManager.getInstance().getClientSocket();
-            //   new Socket("localhost", 12345);
-
             // TODO add your handling code here:
             String username = txtUsername.getText();
             String password = txtPassword.getText();
@@ -182,16 +167,12 @@ public class formLogin extends javax.swing.JFrame {
                 frm.labelAccount.setText(usernameSEND);
 
                 frm.setVisible(true);
-
-//                formMenu frm = new formMenu();
-//                frm.username = txtUsername.getText();
-//                frm.setVisible(true);
                 this.setVisible(false);
 
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Username of Password is wrong!");
             }
-        } catch (Exception ex) {
+        } catch (HeadlessException | IOException ex) {
             System.out.println("Error saat Login");
         }
 
@@ -199,9 +180,9 @@ public class formLogin extends javax.swing.JFrame {
 
     private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
         // TODO add your handling code here:
-//        formRegister frm = new formRegister();
-//        frm.setVisible(true);
-        this.dispose();
+        formRegister frm = new formRegister();
+        frm.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
     /**
@@ -211,7 +192,7 @@ public class formLogin extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -245,7 +226,8 @@ public class formLogin extends javax.swing.JFrame {
             DataOutputStream sendTOServer = new DataOutputStream(clientSocket.getOutputStream());
             sendTOServer.writeBytes(s);
 
-        } catch (Exception e) {
+        } catch (IOException e) {
+            System.out.println("Error saat Login");
         }
 
     }

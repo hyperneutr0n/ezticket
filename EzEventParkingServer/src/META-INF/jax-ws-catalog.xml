@@ -12,4 +12,16 @@
     <system systemId="http://localhost:8080/EzEventParkingWS/LocationWS?xsd=1" uri="wsdl/localhost_8080/EzEventParkingWS/LocationWS.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?wsdl" uri="wsdl/localhost_8080/EzEventParkingWS/UserWS.wsdl"/>
     <system systemId="http://localhost:8080/EzEventParkingWS/UserWS?xsd=1" uri="wsdl/localhost_8080/EzEventParkingWS/UserWS.xsd_1.xsd"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/UserWS?wsdl" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/UserWS.wsdl"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/UserWS?xsd=1" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/UserWS.xsd_1.xsd"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/LocationWS?wsdl" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/LocationWS.wsdl"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/LocationWS?xsd=1" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/LocationWS.xsd_1.xsd"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/ParkingLotWS?wsdl" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/ParkingLotWS.wsdl"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/ParkingLotWS?xsd=1" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/ParkingLotWS.xsd_1.xsd"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/EventWS?wsdl" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/EventWS.wsdl"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/EventWS?xsd=1" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/EventWS.xsd_1.xsd"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/ParkingTicketWS?wsdl" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/ParkingTicketWS.wsdl"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/ParkingTicketWS?xsd=1" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/ParkingTicketWS.xsd_1.xsd"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/EventReservationWS?wsdl" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/EventReservationWS.wsdl"/>
+    <system systemId="http://192.168.180.141:8080/EzEventParkingWS/EventReservationWS?xsd=1" uri="wsdl/192.168.180.141_8080/EzEventParkingWS/EventReservationWS.xsd_1.xsd"/>
 </catalog>

@@ -18,8 +18,8 @@
     </target>
     <target name="wsimport-client-UserWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/UserWS"/>
-        <property name="wsdl-UserWS" location="xml-resources/web-service-references/UserWS/wsdl/localhost_8080/EzEventParkingWS/UserWS.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UserWS" destdir="${build.generated.dir}/jax-wsCache/UserWS" wsdl="${wsdl-UserWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/EzEventParkingWS/UserWS?wsdl" xnocompile="true" xendorsed="true">
+        <property name="wsdl-UserWS" location="xml-resources/web-service-references/UserWS/wsdl/192.168.180.141_8080/EzEventParkingWS/UserWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/UserWS" destdir="${build.generated.dir}/jax-wsCache/UserWS" wsdl="${wsdl-UserWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.180.141:8080/EzEventParkingWS/UserWS?wsdl" xnocompile="true" xendorsed="true">
             <depends file="${wsdl-UserWS}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/UserWS"/>
         </wsimport>
@@ -35,8 +35,8 @@
     </target>
     <target name="wsimport-client-LocationWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/LocationWS"/>
-        <property name="wsdl-LocationWS" location="xml-resources/web-service-references/LocationWS/wsdl/localhost_8080/EzEventParkingWS/LocationWS.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/LocationWS" destdir="${build.generated.dir}/jax-wsCache/LocationWS" wsdl="${wsdl-LocationWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/EzEventParkingWS/LocationWS?wsdl" xnocompile="true" xendorsed="true">
+        <property name="wsdl-LocationWS" location="xml-resources/web-service-references/LocationWS/wsdl/192.168.180.141_8080/EzEventParkingWS/LocationWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/LocationWS" destdir="${build.generated.dir}/jax-wsCache/LocationWS" wsdl="${wsdl-LocationWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.180.141:8080/EzEventParkingWS/LocationWS?wsdl" xnocompile="true" xendorsed="true">
             <depends file="${wsdl-LocationWS}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/LocationWS"/>
         </wsimport>
@@ -50,27 +50,10 @@
         <delete dir="${build.generated.dir}/jax-wsCache/LocationWS"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/ezeventparking/services"/>
     </target>
-    <target name="wsimport-client-EventWS" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/EventWS"/>
-        <property name="wsdl-EventWS" location="xml-resources/web-service-references/EventWS/wsdl/localhost_8080/EzEventParkingWS/EventWS.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EventWS" destdir="${build.generated.dir}/jax-wsCache/EventWS" wsdl="${wsdl-EventWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/EzEventParkingWS/EventWS?wsdl" xnocompile="true" xendorsed="true">
-            <depends file="${wsdl-EventWS}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/EventWS"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/EventWS">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="wsimport-client-clean-EventWS" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/EventWS"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ezeventparking/services"/>
-    </target>
     <target name="wsimport-client-ParkingLotWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/ParkingLotWS"/>
-        <property name="wsdl-ParkingLotWS" location="xml-resources/web-service-references/ParkingLotWS/wsdl/localhost_8080/EzEventParkingWS/ParkingLotWS.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ParkingLotWS" destdir="${build.generated.dir}/jax-wsCache/ParkingLotWS" wsdl="${wsdl-ParkingLotWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/EzEventParkingWS/ParkingLotWS?wsdl" xnocompile="true" xendorsed="true">
+        <property name="wsdl-ParkingLotWS" location="xml-resources/web-service-references/ParkingLotWS/wsdl/192.168.180.141_8080/EzEventParkingWS/ParkingLotWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ParkingLotWS" destdir="${build.generated.dir}/jax-wsCache/ParkingLotWS" wsdl="${wsdl-ParkingLotWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.180.141:8080/EzEventParkingWS/ParkingLotWS?wsdl" xnocompile="true" xendorsed="true">
             <depends file="${wsdl-ParkingLotWS}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/ParkingLotWS"/>
         </wsimport>
@@ -84,10 +67,27 @@
         <delete dir="${build.generated.dir}/jax-wsCache/ParkingLotWS"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/ezeventparking/services"/>
     </target>
+    <target name="wsimport-client-EventWS" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EventWS"/>
+        <property name="wsdl-EventWS" location="xml-resources/web-service-references/EventWS/wsdl/192.168.180.141_8080/EzEventParkingWS/EventWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EventWS" destdir="${build.generated.dir}/jax-wsCache/EventWS" wsdl="${wsdl-EventWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.180.141:8080/EzEventParkingWS/EventWS?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-EventWS}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EventWS"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EventWS">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-EventWS" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/EventWS"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ezeventparking/services"/>
+    </target>
     <target name="wsimport-client-ParkingTicketWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/ParkingTicketWS"/>
-        <property name="wsdl-ParkingTicketWS" location="xml-resources/web-service-references/ParkingTicketWS/wsdl/localhost_8080/EzEventParkingWS/ParkingTicketWS.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ParkingTicketWS" destdir="${build.generated.dir}/jax-wsCache/ParkingTicketWS" wsdl="${wsdl-ParkingTicketWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/EzEventParkingWS/ParkingTicketWS?wsdl" xnocompile="true" xendorsed="true">
+        <property name="wsdl-ParkingTicketWS" location="xml-resources/web-service-references/ParkingTicketWS/wsdl/192.168.180.141_8080/EzEventParkingWS/ParkingTicketWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ParkingTicketWS" destdir="${build.generated.dir}/jax-wsCache/ParkingTicketWS" wsdl="${wsdl-ParkingTicketWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.180.141:8080/EzEventParkingWS/ParkingTicketWS?wsdl" xnocompile="true" xendorsed="true">
             <depends file="${wsdl-ParkingTicketWS}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/ParkingTicketWS"/>
         </wsimport>
@@ -103,8 +103,8 @@
     </target>
     <target name="wsimport-client-EventReservationWS" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/EventReservationWS"/>
-        <property name="wsdl-EventReservationWS" location="xml-resources/web-service-references/EventReservationWS/wsdl/localhost_8080/EzEventParkingWS/EventReservationWS.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EventReservationWS" destdir="${build.generated.dir}/jax-wsCache/EventReservationWS" wsdl="${wsdl-EventReservationWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/EzEventParkingWS/EventReservationWS?wsdl" xnocompile="true" xendorsed="true">
+        <property name="wsdl-EventReservationWS" location="xml-resources/web-service-references/EventReservationWS/wsdl/192.168.180.141_8080/EzEventParkingWS/EventReservationWS.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EventReservationWS" destdir="${build.generated.dir}/jax-wsCache/EventReservationWS" wsdl="${wsdl-EventReservationWS}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://192.168.180.141:8080/EzEventParkingWS/EventReservationWS?wsdl" xnocompile="true" xendorsed="true">
             <depends file="${wsdl-EventReservationWS}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/EventReservationWS"/>
         </wsimport>
@@ -118,5 +118,5 @@
         <delete dir="${build.generated.dir}/jax-wsCache/EventReservationWS"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/ezeventparking/services"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-UserWS, wsimport-client-LocationWS, wsimport-client-EventWS, wsimport-client-ParkingLotWS, wsimport-client-ParkingTicketWS, wsimport-client-EventReservationWS"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-UserWS, wsimport-client-LocationWS, wsimport-client-ParkingLotWS, wsimport-client-EventWS, wsimport-client-ParkingTicketWS, wsimport-client-EventReservationWS"/>
 </project>
