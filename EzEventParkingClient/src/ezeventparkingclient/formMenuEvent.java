@@ -168,7 +168,7 @@ public class formMenuEvent extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(440, 500, 50, 20);
+        jLabel2.setBounds(440, 500, 50, 30);
 
         jPanel6.setLayout(null);
 
@@ -196,13 +196,14 @@ public class formMenuEvent extends javax.swing.JFrame {
 
         textDeskripsi1.setBackground(new java.awt.Color(255, 255, 255));
         textDeskripsi1.setColumns(20);
+        textDeskripsi1.setLineWrap(true);
         textDeskripsi1.setRows(5);
         jScrollPane1.setViewportView(textDeskripsi1);
 
-        jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, -1));
+        jPanel5.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 180, 120));
 
         jPanel6.add(jPanel5);
-        jPanel5.setBounds(50, 20, 203, 244);
+        jPanel5.setBounds(50, 20, 203, 260);
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -227,13 +228,14 @@ public class formMenuEvent extends javax.swing.JFrame {
 
         textDeskripsi2.setBackground(new java.awt.Color(255, 255, 255));
         textDeskripsi2.setColumns(20);
+        textDeskripsi2.setLineWrap(true);
         textDeskripsi2.setRows(5);
         jScrollPane2.setViewportView(textDeskripsi2);
 
-        jPanel9.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, -1));
+        jPanel9.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 136, 180, 110));
 
         jPanel6.add(jPanel9);
-        jPanel9.setBounds(290, 20, 203, 244);
+        jPanel9.setBounds(290, 20, 203, 260);
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -258,16 +260,17 @@ public class formMenuEvent extends javax.swing.JFrame {
 
         textDeskripsi3.setBackground(new java.awt.Color(255, 255, 255));
         textDeskripsi3.setColumns(20);
+        textDeskripsi3.setLineWrap(true);
         textDeskripsi3.setRows(5);
         jScrollPane3.setViewportView(textDeskripsi3);
 
-        jPanel10.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 180, -1));
+        jPanel10.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 136, 180, 110));
 
         jPanel6.add(jPanel10);
-        jPanel10.setBounds(530, 20, 203, 244);
+        jPanel10.setBounds(530, 20, 203, 260);
 
         jPanel1.add(jPanel6);
-        jPanel6.setBounds(50, 190, 800, 290);
+        jPanel6.setBounds(50, 190, 800, 300);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -312,10 +315,10 @@ public class formMenuEvent extends javax.swing.JFrame {
                 lblNamaEvent.setText(dataEvent1[1]);
                 LocalDateTime dateTime1 = LocalDateTime.parse(dataEvent1[6], formatter);
                  // Membuat formatter untuk output yang diinginkan tanpa "T"
-                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                DateTimeFormatter outputFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
                 // Mengonversi kembali objek LocalDateTime ke string dengan format yang diinginkan
-                String formattedDate1 = dateTime1.format(outputFormatter);
+                String formattedDate1 = dateTime1.format(outputFormatter1);
                 lblTanggal.setText("Date: " + formattedDate1);
                 lblHarga.setText("Price: Rp." + (int)Double.parseDouble(dataEvent1[5]));
                 lblLokasi.setText("Location: " + dataEvent1[4]);
@@ -324,7 +327,11 @@ public class formMenuEvent extends javax.swing.JFrame {
                 String[] dataEvent2 = splitResponse.get(1).split(";");
                 lblNamaEvent1.setText(dataEvent2[1]);
                 LocalDateTime dateTime2 = LocalDateTime.parse(dataEvent2[6], formatter);
-                lblTanggal1.setText("Date: " + dateTime2);
+                DateTimeFormatter outputFormatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                // Mengonversi kembali objek LocalDateTime ke string dengan format yang diinginkan
+                String formattedDate2 = dateTime2.format(outputFormatter2);
+                lblTanggal1.setText("Date: " + formattedDate2);
                 lblHarga1.setText("Price: Rp." + (int)Double.parseDouble(dataEvent2[5]));
                 lblLokasi1.setText("Location: " + dataEvent2[4]);
                 textDeskripsi2.setText(dataEvent2[2]);
@@ -332,7 +339,11 @@ public class formMenuEvent extends javax.swing.JFrame {
                 String[] dataEvent3 = splitResponse.get(2).split(";");
                 lblNamaEvent2.setText(dataEvent3[1]);
                 LocalDateTime dateTime3 = LocalDateTime.parse(dataEvent3[6], formatter);
-                lblTanggal2.setText("Date: " + dataEvent3[6]);
+                DateTimeFormatter outputFormatter3 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+                // Mengonversi kembali objek LocalDateTime ke string dengan format yang diinginkan
+                String formattedDate3 = dateTime3.format(outputFormatter3);
+                lblTanggal2.setText("Date: " + formattedDate3);
                 lblHarga2.setText("Price: Rp." + (int)Double.parseDouble(dataEvent3[5]));
                 lblLokasi2.setText("Location: " + dataEvent3[4]);
                 textDeskripsi3.setText(dataEvent3[2]);
